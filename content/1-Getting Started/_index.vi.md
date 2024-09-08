@@ -16,7 +16,7 @@ Tất cả các bài tập đều được thiết kế để chạy trên tính
 
 Hình dưới đây cho thấy các tính năng chính mà bạn sẽ làm việc và cách chúng được sử dụng trong môi trường kho dữ liệu điển hình.
 
-![image.png](/images/1/1-1.png)
+![image.png](/images/1/1-111.png)
 
 **Các tài nguyên AWS cần thiết để chạy các bài tập này bao gồm:**
 
@@ -37,7 +37,7 @@ Nếu bạn đang tự thực hiện các bài tập này, hãy sử dụng mẫ
 
 ![image.png](/images/1/1-2.png)
 
-![image.png](/images/1/1-3.png)
+![image.png](/images/1/1-31.png)
 
 **1.3 Cấu Hình Công Cụ Khách Hàng - Query Editor V2**
 

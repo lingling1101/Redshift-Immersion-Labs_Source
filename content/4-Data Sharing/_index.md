@@ -44,7 +44,7 @@ Run following command in query editor connecting to serverless endpoint (produce
 -- This should be run on the producer 
 select current_namespace;
 ```
-![image.png](/images/4/4-1.png)
+![image.png](/images/4/4-01.png)
 
 Run following command in query editor connecting to the provisioned cluster (consumer - consumercluster-xxxxxxxxxx). Note down the namespace from output. Ensure that the editor is connected to the consumer cluster.
 
@@ -52,10 +52,7 @@ Run following command in query editor connecting to the provisioned cluster (con
 -- This should be run on consumer 
 select current_namespace;
 ```
-
-![image.png](/images/4/4-2.png)
-
-![image.png](/images/4/4-3.png)
+![image.png](/images/4/4-012.png)
 
 **4.4 Create data share on producer**
 
@@ -81,7 +78,7 @@ select * from SVV_DATASHARE_OBJECTS;
 Grant USAGE ON DATASHARE cust_share to NAMESPACE '<<consumer namespace>>'
 ```
 
-![image.png](/images/4/4-4.png)
+![image.png](/images/4/4-04.png)
 
 **4.5 Query data from consumer**
 
@@ -101,4 +98,76 @@ CREATE DATABASE cust_db FROM DATASHARE cust_share OF NAMESPACE '<<producer names
 select count(*) from cust_db.public.customer; -- count 15000000
 ```
 
-![image.png](/images/4/4-5.png)
+![image.png](/images/4/4-05.png)
+
+#### [OPTIONAL] 
+
+**- Create external schema in consumer**
+
+Running the following command in the provisioned consumer cluster (consumer - consumercluster-xxxxxxxxxx) will create an external schema called cust_db_public in your consumer's dev database. This is useful when you require all of your data to be available in a single database, simplifying SQL statements to use two-dot notation instead of three-dot (as shown in the next step). This step is also necessary when using some BI tools to allow metadata to be correctly refreshed in their UI. Creating an external schema using a datashare object can also simplify the process of splitting workloads to datasharing clusters. By creating external schemas in your consumer cluster with the same name as in the producer, workload queries can be migrated to the consumer cluster without needing any change.
+
+```jsx
+-- Create local schema
+CREATE EXTERNAL SCHEMA cust_db_public
+FROM REDSHIFT
+DATABASE 'cust_db'
+SCHEMA 'public';
+
+-- Select query to check the count
+select count(*) from cust_db_public.customer; -- count 15000000
+```
+
+![image.png](/images/4/4-6.png)
+
+**Notice:** you get the same results as in the previous step, but the select statement is using the new external schema.
+
+**- Load local data and join to shared data**
+
+Run following commands in a query editor tab that is to the provisioned cluster (consumer - consumercluster-xxxxxxxxxx). The following commands are used to create and load orders table data that will be later joined with customer data shared from the producer endpoint.
+
+```jsx
+-- Create orders table in provisioned cluster (consumer).
+DROP TABLE IF EXISTS orders;
+create table orders
+(  O_ORDERKEY bigint NOT NULL,  
+O_CUSTKEY bigint,  
+O_ORDERSTATUS varchar(1),  
+O_TOTALPRICE decimal(18,4),  
+O_ORDERDATE Date,  
+O_ORDERPRIORITY varchar(15),  
+O_CLERK varchar(15),  
+O_SHIPPRIORITY Integer,  O_COMMENT varchar(79))
+distkey (O_ORDERKEY)
+sortkey (O_ORDERDATE);
+
+-- Load orders table from public data set
+copy orders from 's3://redshift-immersionday-labs/data/orders/orders.tbl.'
+iam_role default region 'us-west-2' lzop delimiter '|' COMPUPDATE PRESET;
+
+-- Select count to verify the data load
+select count(*) from orders;  -- count 76000000
+```
+
+![image.png](/images/4/4-7.png)
+
+Run the below BI query to find total sale price by customer segment and order priority joining locally loaded order data to shared customer data.
+
+```jsx
+SELECT c_mktsegment, o_orderpriority, sum(o_totalprice)
+FROM cust_db.public.customer c
+JOIN orders o on c_custkey = o_custkey
+GROUP BY c_mktsegment, o_orderpriority;
+```
+
+![image.png](/images/4/4-8.png)
+
+If you created the external schema in the previous step, run the below query using the local schema instead of the datashare database. This will provide the same result as the query above.
+
+```jsx
+SELECT c_mktsegment, o_orderpriority, sum(o_totalprice)
+FROM cust_db_public.customer c
+JOIN orders o on c_custkey = o_custkey
+GROUP BY c_mktsegment, o_orderpriority;
+```
+
+![image.png](/images/4/4-9.png)

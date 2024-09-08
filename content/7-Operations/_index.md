@@ -50,29 +50,29 @@ grant role sys:monitor to "IAMR:TeamRole"
 
 - Scroll below, you can see your query run-times for selected time interval. Use this graph to look into query concurrency as well as to research more into certain queries that took longer to execute than expected.
 
-![image.png](/images/7/7-2.png)
+![image.png](/images/7/7-0002.png)
 
 - Scroll again below to view the Queries and loads chart. Here you can see all the completed, running, and aborted queries.
 
-![image.png](/images/7/7-3.png)
+![image.png](/images/7/7-03.png)
 
 Navigate to the **Database Performance** tab to view:
 
 - **Queries completed per second**: The average number of queries completed per second
 
-![image.png](/images/7/7-4.png)
+![image.png](/images/7/7-04.png)
 
 - **Queries duration**: The average amount of time to complete a query
 
-![image.png](/images/7/7-5.png)
+![image.png](/images/7/7-05.png)
 
 - **Database connections**: The average number of active database connections
 
-![image.png](/images/7/7-6.png)
+![image.png](/images/7/7-06.png)
 
 - **Running and Queued queries**
 
-![image.png](/images/7/7-7.png)
+![image.png](/images/7/7-07.png)
 
 Navigate to the **Resource Monitoring** section on the left navigation pane.
 
@@ -83,11 +83,11 @@ Navigate to the **Resource Monitoring** section on the left navigation pane.
 
 - **RPU Capacity Used** - No.of RPUs consumed
 
-![image.png](/images/7/7-9.png)
+![image.png](/images/7/7-09.png)
 
 - **Compute usage** - RPU seconds
 
-![image.png](/images/7/7-10.png)
+![image.png](/images/7/7-010.png)
 
 **7.3 System Views**
 
@@ -140,7 +140,7 @@ FROM sys_serverless_usage
 ORDER BY start_time desc;
 ```
 
-![image.png](/images/7/7-12.png)
+![image.png](/images/7/7-012.png)
 
 In the result, you can see the periods of idle time where the cluster is auto paused and auto resumed when the queries starts coming in. You will not be charged when the cluster is paused.
 
@@ -166,7 +166,7 @@ The first step in the process is to make sure audit logging has been enabled for
 
 - Navigate to **Namespace**→**security and encryption**. Verify audit logging is on.
 
-![image.png](/images/7/7-14.png)
+![image.png](/images/7/7-014.png)
 
 ![image.png](/images/7/7-15.png)
 
@@ -191,7 +191,7 @@ distkey (O_ORDERKEY)
 sortkey (O_ORDERDATE);
 ```
 
-![image.png](/images/7/7-17.png)
+![image.png](/images/7/7-017.png)
 
 ```jsx
 copy orders_new from 's3://redshift-immersionday-labs/data/orders/orders.tbl.'
@@ -211,7 +211,7 @@ You can monitor events in the Amazon CloudWatch Logs.
 
 - Select **AWS/Redshift-Serverless** to get details on Serverless usage. Below is a example screen.
 
-![image.png](/images/7/7-20.png)
+![image.png](/images/7/7-020.png)
 
 Amazon Redshift Serverless metrics are divided into groups of compute metrics, data and storage metrics. Select **Workgroup*** to get compute seconds details.
 
@@ -219,21 +219,21 @@ Amazon Redshift Serverless metrics are divided into groups of compute metrics, d
 
 Select your workgroup to get details on compute resources for the specific workgroup. see below example screen.
 
-![image.png](/images/7/7-22.png)
+![image.png](/images/7/7-022.png)
 
 Select **DatabaseName**, **Namespace** to get details on storage resources for a specific namespace as shown below.
 
-![image.png](/images/7/7-23.png)
+![image.png](/images/7/7-023.png)
 
 Select **Dev** database for your namespace to find out total number of tables as shown below. Please ensure you de-select all others to see a graph similar to below.
 
-![image.png](/images/7/7-24.png)
+![image.png](/images/7/7-0024.png)
 
 You can also export the CloudWatch log groups events to S3. Please see below example screen.
 
 **NOTE**: You may not be able to access this in lab environment. But you can try in your own environment.
 
-![image.png](/images/7/7-25.png)
+![image.png](/images/7/7-025.png)
 
 **7.5 Changing RPUs and Setting limits**
 
@@ -278,6 +278,8 @@ order by 3 desc;
 ```
 
 ![image.png](/images/7/7-30.png)
+
+> **Tip:** You may want to try removing "where" condition to avoid fetching results from cache.
 
 - You should get an error: `ERROR: Query reached usage limit*` once you reached the limit and an email notification will be sent if you subscribed through SNS topic.
 

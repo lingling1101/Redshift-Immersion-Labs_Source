@@ -128,7 +128,7 @@ diststyle even;
 
 ![image.png](/images/2/2-2.png)
 
-![image.png](/images/2/2-3.png)
+![image.png](/images/2/2-33.png)
 
 **2.3 Data Loading**
 
@@ -209,13 +209,13 @@ As a one time setup, you need to create a S3 bucket in the same region as redshi
 
 S3 bucket is already pre-created in this lab environment. Navigate to [AWS CloudFormation](https://ap-southeast-2.signin.aws.amazon.com/oauth?response_type=code&client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fcloudformation&redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fcloudformation%2Fhome%3FhashArgs%3D%2523%26isauthcode%3Dtrue%26oauthStart%3D1723994246570%26state%3DhashArgsFromTB_ap-southeast-2_4edb45c164185361&forceMobileLayout=0&forceMobileApp=0&code_challenge=9xZ7-RKc3ZqaBRZs2hRfaMaNN99JIO-vOWYdGlBdM6M&code_challenge_method=SHA-256)  and click on 'cfn' stack. Under 'Outputs' tab note down the S3Bucket. You’ll need this value in next step.
 
-![image.png](/images/2/2-5.png)
+![image.png](/images/2/2-55.png)
 
 In QEV2 go to **Settings**(bottom left) --> **Account settings** --> **S3 bucket name**.
 
-![image.png](/images/2/2-6.png)
+![image.png](/images/2/2-62.png)
 
-![image.png](/images/2/2-7.png)
+![image.png](/images/2/2-77.png)
 
 *+Load File*
 
@@ -226,25 +226,27 @@ Let us load the downloaded *Nation* file on your desktop into Redshift.
 
 1. From **resources** section, select and connect to your serverless workgroup.
 
-Note: The *Nation* table is already created in the [Create Tables](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab2#create-tables) step. However you can also create a table through user interface by following **Create**-->**Table** option in left navigation pane in *Query Editor v2*.
+> **Note:**
+> The *Nation* table is already created in the [Create Tables](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab2#create-tables) step. However you can also create a table through user interface by following **Create**-->**Table** option in left navigation pane in *Query Editor v2*.
 
 2. Click on **Load data** -- select **Load from local file** -- Browse and select the Nation.csv file downloaded earlier -- **Data conversion parameters** -- **Check Ignore header rows** -- **Next** -- **Table options** select your serverless work group -- **Databas**e = dev -- **Schema** = public -- **Table** = nation -- **Load data** -- Notification of**Loading data from a local file succeeded** would be shown on top.
 
-![image.png](/images/2/2-8.png)
+![image.png](/images/2/2-81.png)
 
-Note: **Machines with upload restrictions**
+> **Note:** Machines with upload restrictions  
+>  
+> If your machine has restrictions that don’t allow uploads to S3, you will not be able to load a local file. However, you can use the Query Editor v to load a file directly from S3. To do this, select the **Load from S3 bucket** option and input the following location:  
+>  
+> `s3://redshift-immersionday-labs/data/nation/Nation.csv`  
+>  
+> You will need to select the S3 location as **us-west-2**.  
+>  
+> Follow the instructions below as-is. The only change is selecting the IAM role when choosing which table to load. There will be only one role available in AWS Sponsored Events (**RedshiftServerlessImmersionRole**).
 
-If your machine has restrictions that don't allow uploads to S3 you will not be able to load a local file. However, you can use the *Query Editor v* to load a file directly from S3. To do this, select the **Load from S3 bucket** option and input the following location:
 
-`s3://redshift-immersionday-labs/data/nation/Nation.csv`
+![image.png](/images/2/2-91.png)
 
-You will need to select the S3 location as `us-west-2`.
-
-Follow the below instructions as-is. The only change is selecting the IAM role when choosing which table to load. There will be only one role available in **AWS Sponsered Events** (`RedshiftServerlessImmersionRole`).
-
-![image.png](/images/2/2-9.png)
-
-![image.png](/images/2/2-10.png)
+![image.png](/images/2/2-101.png)
 
 **2.4 Load Validation**
 

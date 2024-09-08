@@ -9,7 +9,7 @@ pre : " <b> 6. </b> "
 
 In this lab, we show you how to query data in your Amazon S3 data lake with Amazon Redshift without loading or moving data. We will also demonstrate how you can leverage views which union data in Redshift Managed storage with data in S3. You can query structured and semi-structured data from files in Amazon S3 without having to copy or move data into Amazon Redshift tables. For latest guide on the file types that can be queried with Redshift Spectrum, please refer to supported data formats.
 
-![image.png](/images/6/6-1.png)
+![image.png](/images/6/6-001.png)
 
 **Contents**
 
@@ -23,6 +23,8 @@ In this lab, we show you how to query data in your Amazon S3 data lake with Amaz
 This lab assumes you have launched a Redshift Serverless Warehouse. If you have not created Redshift Serverless warehouse see [Getting Started](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1). We will use the Redshift Query Editor V2 in the Redshift console for this lab.
 
 Please find your region by following the image below and select s3 data sets as per the instructions for your region.
+
+> This lab requires a Redshift Serverless namespace in us-east-1(N. Virginia) or us-west-2(Oregon) or eu-west-1(Ireland) or ap-northeast-1(Tokyo) regions as the data in s3 is located in these four regions.
 
 **6.2 Use-Case description**
 
@@ -53,7 +55,11 @@ In this part of the lab, we will perform following activities:
 - Introspect the historical data, perhaps rolling-up the data in novel ways to see trends over time, or other dimensions.
 - Note the partitioning scheme is Year, Month, Type (where Type is a taxi company). Here's a Screenshot: [https://s3.console.aws.amazon.com/s3/buckets/us-west-2.serverless-analytics/canonical/NY-Pub/](https://s3.console.aws.amazon.com/s3/buckets/us-west-2.serverless-analytics/canonical/NY-Pub/)
 
-![image.png](/images/6/6-3.png)
+> Region
+> 
+> Clicking the above link may change your default region. When continuing to the next steps make sure that your region is correct before creating the Glue Crawler.
+
+![image.png](/images/6/6-03.png)
 
 **Create external schema (and DB) for Redshift Spectrum**
 
@@ -115,7 +121,7 @@ In this lab, you will use AWS Glue Crawler to create external table **adb305.ny_
 
 ![image.png](/images/6/6-11.png)
 
-![image.png](/images/6/6-12.png)
+![image.png](/images/6/6-012.png)
 
 **+** Go back to **Glue Console**, refresh the target database and select **spectrumdb**
 
@@ -127,7 +133,7 @@ In this lab, you will use AWS Glue Crawler to create external table **adb305.ny_
 
 **+** After Crawler run completes, you can see a new table **ny_pub** in **Glue Catalog**
 
-![image.png](/images/6/6-15.png)
+![image.png](/images/6/6-015.png)
 
 **2. Create external schema adb305 in Redshift and select from Glue catalog table - ny_pub**
 
@@ -143,7 +149,7 @@ In this lab, you will use AWS Glue Crawler to create external table **adb305.ny_
 
 Click on **Serverless dashboard** menu item to the left side of the console. Click on the name space provisioned earlier. Click **Query data**.
 
-![image.png](/images/6/6-16.png)
+![image.png](/images/6/6-016.png)
 
 - Create an external schema **adb305** pointing to your **Glue Catalog Database spectrumdb**.
 
@@ -154,7 +160,7 @@ IAM_ROLE default
 CREATE external DATABASE if not exists;
 ```
 
-![image.png](/images/6/6-17.png)
+![image.png](/images/6/6-017.png)
 
 **Pin-point the Blizzard**
 
@@ -206,7 +212,7 @@ WHERE year = 2016 AND month = 1 AND type = 'green';
 ANALYZE COMPRESSION workshop_das.taxi_201601;
 ```
 
-![image.png](/images/6/6-21.png)
+![image.png](/images/6/6-021.png)
 
 - Add to the **taxi_201601** table with an **INSERT/SELECT** statement for other taxi companies.
 
@@ -241,7 +247,7 @@ CREATE VIEW adb305_view_NYTaxiRides AS
 WITH NO SCHEMA BINDING;
 ```
 
-![image.png](/images/6/6-24.png)
+![image.png](/images/6/6-024.png)
 
 **Explain displays the execution plan for a query statement without running the query**
 
@@ -259,7 +265,7 @@ GROUP BY 1,2,3 ORDER BY 1,2,3;
 
 ![image.png](/images/6/6-25.png)
 
-![image.png](/images/6/6-26.png)
+![image.png](/images/6/6-026.png)
 
 Note the **S3 Seq Scan** was run against the data on Amazon S3. The **S3 Seq Scan** node shows the Filter: (passenger_count = 4) was processed in the **Redshift Spectrum** layer.
 

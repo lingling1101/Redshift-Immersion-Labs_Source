@@ -82,7 +82,7 @@ CREATE TABLE bank_details_training(
 COPY bank_details_training from 's3://redshift-downloads/redshift-ml/workshop/bank-marketing-data/training_data/' REGION 'us-east-1' IAM_ROLE default CSV IGNOREHEADER 1 delimiter ';';
 ```
 
-![image.png](/images/5/5-1.png)
+![image.png](/images/5/5-01.png)
 
 Thực hiện các câu lệnh sau để tạo và tải bảng suy luận trong Redshift. Dữ liệu này sẽ được sử dụng để mô phỏng dữ liệu mới mà chúng tôi có thể kiểm tra dựa trên mô hình.
 
@@ -113,7 +113,7 @@ CREATE TABLE bank_details_inference(
 COPY bank_details_inference from 's3://redshift-downloads/redshift-ml/workshop/bank-marketing-data/inference_data/' REGION 'us-east-1' IAM_ROLE default CSV IGNOREHEADER 1 delimiter ';';
 ```
 
-![image.png](/images/5/5-2.png)
+![image.png](/images/5/5-02.png)
 
 **Tạo bucket S3**
 
@@ -121,7 +121,7 @@ Trước khi bạn tạo một mô hình, bạn cần tạo một bucket S3 đ�
 
 ![image.png](/images/5/5-3.png)
 
-![image.png](/images/5/5-4.png)
+![image.png](/images/5/5-04.png)
 
 **5.3 Tạo mô hình**
 
@@ -177,7 +177,9 @@ Chạy lệnh sau để kiểm tra trạng thái của mô hình. Nó sẽ ở t
 show model model_bank_marketing;
 ```
 
-![image.png](/images/5/5-6.png)
+![image.png](/images/5/5-06.png)
+
+> Vì quá trình đào tạo mất khoảng 60 phút, bạn có thể chuyển sang phòng thí nghiệm tiếp theo hoặc bài thuyết trình. Vui lòng quay lại sau một giờ và thực hiện các bước còn lại.
 
 **5.4 Kiểm tra độ chính xác và chạy truy vấn suy luận**
 
@@ -187,7 +189,7 @@ Hy vọng rằng bạn đã cho mô hình đủ thời gian (~60 phút) để ho
 show model model_bank_marketing;
 ```
 
-![image.png](/images/5/5-7.png)
+![image.png](/images/5/5-07.png)
 
 Kiểm tra độ chính xác và chạy truy vấn suy luận. Chạy các truy vấn sau - truy vấn đầu tiên kiểm tra độ chính xác của mô hình và truy vấn thứ hai sẽ sử dụng hàm được tạo bởi mô hình đã được xây dựng để suy diễn và so với tập dữ liệu trong bảng suy diễn
 
@@ -234,7 +236,7 @@ Bạn có thể xác định các thuộc tính nào đang đóng góp tích c�
 SELECT explain_model('model_bank_marketing');
 ```
 
-![image.png](/images/5/5-10.png)
+![image.png](/images/5/5-010.png)
 
 Bạn sẽ nhận được thông báo cho biết mô hình chưa được đào tạo đủ lâu để tạo báo cáo giải thích. Điều này là bình thường vì mô hình được đào tạo với `MAX_RUNTIME` là 3600 giây. Thông thường, bạn nên tăng `MAX_RUNTIME` lên 9600 giây hoặc hơn để Redshift có thể tạo báo cáo giải thích. Điều này cung cấp đủ thời gian để hoàn thành các bước báo cáo giải thích của mô hình.
 

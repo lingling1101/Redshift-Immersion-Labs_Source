@@ -53,7 +53,7 @@ create table stage_lineitem (
   L_SHIPMODE varchar(10),
   L_COMMENT varchar(44));
 ```
-![image.png](/images/3/3-3.png)
+![image.png](/images/3/3-33.png)
 
 Execute below script to create a stored procedure. This stored procedure performs following tasks:
 
@@ -91,7 +91,7 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-4.png)
+![image.png](/images/3/3-44.png)
 
 Before you call this stored procedure, capture total #rows from lineitem table
 
@@ -146,7 +146,7 @@ To get started, we need to first create a table for the stored procedures in thi
 CREATE TABLE stage_lineitem2 (LIKE stage_lineitem);
 ```
 
-![image.png](/images/3/3-8.png)
+![image.png](/images/3/3-88.png)
 
 Next, we will create a table that will capture the error messages.
 
@@ -156,7 +156,7 @@ CREATE TABLE procedure_log
 (log_timestamp timestamp, procedure_name varchar(100), error_message varchar(255));
 ```
 
-![image.png](/images/3/3-9.png)
+![image.png](/images/3/3-99.png)
 
 **3.4 Atomic**
 
@@ -190,7 +190,7 @@ $$
 LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-10.png)
+![image.png](/images/3/3-010.png)
 
 The above stored procedure is designed to fail with a division by zero error. The exception handling in this stored procedure stores the error message in the procedure_log table and then executes a RAISE INFO so the calling procedure is aware of the error. Because this is an atomic procedure, this will cause a re-raise of the error even though the exception block doesn't raise an error. It raises an INFO but Redshift overrides this in the default mode and an ERROR is raised.
 
@@ -213,7 +213,7 @@ $$
 LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-11.png)
+![image.png](/images/3/3-011.png)
 
 This second stored procedure inserts data into the stage_lineitem2 table and then calls the procedure that will fail by design.
 
@@ -222,7 +222,7 @@ This second stored procedure inserts data into the stage_lineitem2 table and the
 CALL pr_insert_stage();
 ```
 
-![image.png](/images/3/3-12.png)
+![image.png](/images/3/3-012.png)
 
 You should see two messages:
 
@@ -247,7 +247,7 @@ Because the stored procedure is atomic, the data inserted into the stage table i
 SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 ```
 
-![image.png](/images/3/3-14.png)
+![image.png](/images/3/3-014.png)
 
 You should see that the pr_divide_by_zero procedure error was captured in the exception block.
 
@@ -289,7 +289,7 @@ $$
 LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-15.png)
+![image.png](/images/3/3-015.png)
 
 ```jsx
 CALL pr_insert_stage_v2();
@@ -311,7 +311,7 @@ Now, check the number of rows in `stage_lineitem2`;
 SELECT COUNT(*) FROM stage_lineitem2;
 ```
 
-![image.png](/images/3/3-17.png)
+![image.png](/images/3/3-017.png)
 
 Because the stored procedure is non-atomic, the data inserted into the table are not rolled back. The insert statement was automatically committed. The number of rows in `stage_lineitem2` is 4155141.
 
@@ -319,7 +319,7 @@ Because the stored procedure is non-atomic, the data inserted into the table are
 SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 ```
 
-![image.png](/images/3/3-18.png)
+![image.png](/images/3/3-018.png)
 
 You should see that the pr_divide_by_zero_v2 procedure error was captured in the exception block just like in the atomic version.
 
@@ -363,7 +363,7 @@ from LINEITEM
 group by 1,2,3;
 ```
 
-![image.png](/images/3/3-20.png)
+![image.png](/images/3/3-0020.png)
 
 Now execute the below query which has been re-written to use the materialized view. Note the difference in query execution time. You get the same results in few seconds.
 
@@ -414,6 +414,10 @@ limit 1000;
 
 ![image.png](/images/3/3-23.png)
 
+![image.png](/images/3/3-232.png)
+
+> Write additional queries which can leverage your materialized view but which do not directly reference it. For example, Total Extendedprice by Region.
+
 **3.7 Bringing it together**
 
 Let’s see if Redshift is automatically refresh materialized view after lineitem table Data Changes.
@@ -463,7 +467,7 @@ $$ language plpythonu;
 
 select f_py_greater (l_extendedprice, l_discount) from lineitem limit 10
 ```
-
+![image.png](/images/3/3-272.png)
 ![image.png](/images/3/3-27.png)
 
 The following example creates a SQL function that compares two numbers and returns the larger value:

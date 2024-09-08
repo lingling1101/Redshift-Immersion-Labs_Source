@@ -6,7 +6,7 @@ chapter = false
 pre = "<b>7. </b>"
 +++
 
-**7. Các hoạt động**
+**VII. Các hoạt động**
 
 Trong bài thực hành này, bạn sẽ thực hiện việc giám sát (từ cả bảng điều khiển và các chế độ xem hệ thống), tính năng ghi nhật ký kiểm toán, thay đổi cài đặt và giới hạn RPU cơ bản.
 
@@ -49,29 +49,29 @@ grant role sys:monitor to "IAMR:TeamRole"
 - Bây giờ hãy quay lại phần [**Query and database monitoring**](https://console.aws.amazon.com/redshiftv2/home?#serverless-query-and-database-monitoring) (Giám sát truy vấn và cơ sở dữ liệu) ở menu bên trái và thay đổi một số bộ lọc để bắt đầu xem các truy vấn.
 - Cuộn xuống dưới, bạn có thể thấy thời gian chạy truy vấn của bạn trong khoảng thời gian đã chọn. Sử dụng biểu đồ này để xem xét độ đồng thời của các truy vấn cũng như nghiên cứu thêm về những truy vấn mất nhiều thời gian để thực thi hơn mong đợi.
 
-![image.png](/images/7/7-2.png)
+![image.png](/images/7/7-0002.png)
 
 - Cuộn lại bên dưới để xem biểu đồ Truy vấn và tải. Tại đây bạn có thể thấy tất cả các truy vấn đã hoàn thành, đang chạy và bị hủy bỏ.
 
-![image.png](/images/7/7-3.png)
+![image.png](/images/7/7-03.png)
 
 Đi đến tab **Database Performance** (Hiệu suất cơ sở dữ liệu) để xem:
 
 - **Queries completed per second** (Số truy vấn hoàn thành mỗi giây): Số lượng truy vấn trung bình hoàn thành mỗi giây.
 
-![image.png](/images/7/7-4.png)
+![image.png](/images/7/7-04.png)
 
 - **Queries duration** (Thời gian truy vấn): Thời gian trung bình để hoàn thành một truy vấn.
 
-![image.png](/images/7/7-5.png)
+![image.png](/images/7/7-05.png)
 
 - **Database connections** (Kết nối cơ sở dữ liệu): Số lượng kết nối cơ sở dữ liệu hoạt động trung bình.
 
-![image.png](/images/7/7-6.png)
+![image.png](/images/7/7-06.png)
 
 - **Running and Queued queries** (Truy vấn đang chạy và đang xếp hàng)
 
-![image.png](/images/7/7-7.png)
+![image.png](/images/7/7-07.png)
 
 Đi đến phần **Resource Monitoring** (Giám sát tài nguyên) trên thanh điều hướng bên trái.
 
@@ -82,11 +82,11 @@ grant role sys:monitor to "IAMR:TeamRole"
 
 - **RPU Capacity Used** (Công suất RPU đã sử dụng) - Số lượng RPUs đã tiêu thụ.
 
-![image.png](/images/7/7-9.png)
+![image.png](/images/7/7-09.png)
 
 - **Compute usage** (Sử dụng tính toán) - Số giây RPU.
 
-![image.png](/images/7/7-10.png)
+![image.png](/images/7/7-010.png)
 
 **7.3 Chế độ xem hệ thống**
 
@@ -139,7 +139,7 @@ FROM sys_serverless_usage
 ORDER BY start_time desc;
 ```
 
-![image.png](/images/7/7-12.png)
+![image.png](/images/7/7-012.png)
 
 Trong kết quả, bạn có thể thấy các khoảng thời gian không hoạt động khi cluster tự động dừng và tự động khôi phục khi các truy vấn bắt đầu xuất hiện. Bạn sẽ không bị tính phí khi cluster đang ở trạng thái dừng.
 
@@ -165,7 +165,7 @@ Bước đầu tiên trong quy trình là đảm bảo rằng ghi nhật ký ki�
 
 - Đi đến **Namespace** → **security and encryption**. Xác minh rằng ghi nhật ký kiểm toán đã được bật.
 
-![image.png](/images/7/7-14.png)
+![image.png](/images/7/7-014.png)
 
 ![image.png](/images/7/7-15.png)
 
@@ -190,7 +190,7 @@ distkey (O_ORDERKEY)
 sortkey (O_ORDERDATE);
 ```
 
-![image.png](/images/7/7-17.png)
+![image.png](/images/7/7-017.png)
 
 ```jsx
 copy orders_new from 's3://redshift-immersionday-labs/data/orders/orders.tbl.'
@@ -209,7 +209,7 @@ Bạn có thể giám sát các sự kiện trong Amazon CloudWatch Logs.
 - Đi đến dịch vụ **Amazon CloudWatch** và chọn **Metrics** → **All metrics** trên menu điều hướng bên trái.
 - Chọn **AWS/Redshift-Serverless** để lấy chi tiết về việc sử dụng Serverless.
 
-![image.png](/images/7/7-20.png)
+![image.png](/images/7/7-020.png)
 
 Các chỉ số Amazon Redshift Serverless được chia thành các nhóm chỉ số tính toán, dữ liệu và lưu trữ. Chọn **Workgroup*** để lấy chi tiết về số giây tính toán.
 
@@ -218,21 +218,21 @@ Các chỉ số Amazon Redshift Serverless được chia thành các nhóm chỉ
 Chọn nhóm công việc của bạn để lấy chi tiết về tài nguyên tính toán cho nhóm công việc cụ thể. 
 
 
-![image.png](/images/7/7-22.png)
+![image.png](/images/7/7-022.png)
 
 Chọn **DatabaseName**, **Namespace** để lấy chi tiết về tài nguyên lưu trữ cho một namespace.
 
-![image.png](/images/7/7-23.png)
+![image.png](/images/7/7-023.png)
 
 Chọn cơ sở dữ liệu **Dev** cho namespace của bạn để tìm tổng số bảng như hình dưới đây. 
 
-![image.png](/images/7/7-24.png)
+![image.png](/images/7/7-0024.png)
 
 Bạn cũng có thể xuất các sự kiện nhóm nhật ký CloudWatch sang S3. 
 
 **LƯU Ý**: Bạn có thể không truy cập được điều này trong môi trường thực hành. Nhưng bạn có thể thử trong môi trường của riêng bạn.
 
-![image.png](/images/7/7-25.png)
+![image.png](/images/7/7-025.png)
 
 **7.5 Thay đổi RPUs và đặt giới hạn**
 
@@ -276,6 +276,8 @@ order by 3 desc;
 ```
 
 ![image.png](/images/7/7-30.png)
+
+> **Mẹo:** Bạn có thể thử xóa điều kiện "where" để tránh lấy kết quả từ bộ nhớ đệm.
 
 - Bạn sẽ nhận được lỗi: `ERROR: Query reached usage limit*` khi đạt đến giới hạn và một thông báo qua email sẽ được gửi nếu bạn đã đăng ký qua chủ đề SNS.
 

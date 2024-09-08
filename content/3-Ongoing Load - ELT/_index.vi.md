@@ -54,7 +54,7 @@ create table stage_lineitem (
   L_SHIPMODE varchar(10),
   L_COMMENT varchar(44));
 ```
-![image.png](/images/3/3-3.png)
+![image.png](/images/3/3-33.png)
 
 Thực thi script dưới đây để tạo một stored procedure. Stored procedure này thực hiện các nhiệm vụ sau:
 
@@ -92,7 +92,7 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-4.png)
+![image.png](/images/3/3-44.png)
 
 Trước khi bạn gọi stored procedure này, hãy thu thập tổng số hàng từ bảng `lineitem`.
 
@@ -146,7 +146,7 @@ Các ngoại lệ được xử lý trong stored procedures khác nhau dựa tr�
 CREATE TABLE stage_lineitem2 (LIKE stage_lineitem);
 ```
 
-![image.png](/images/3/3-8.png)
+![image.png](/images/3/3-88.png)
 
 Tiếp theo, chúng ta sẽ tạo một bảng để ghi lại các thông báo lỗi.
 
@@ -155,7 +155,7 @@ CREATE TABLE procedure_log
 (log_timestamp timestamp, procedure_name varchar(100), error_message varchar(255));
 ```
 
-![image.png](/images/3/3-9.png)
+![image.png](/images/3/3-99.png)
 
 **3.4 Nguyên tử (Atomic)**
 
@@ -189,7 +189,7 @@ $$
 LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-10.png)
+![image.png](/images/3/3-010.png)
 
 Stored procedure trên được thiết kế để gặp lỗi chia cho số 0. Xử lý ngoại lệ trong stored procedure này lưu trữ thông báo lỗi vào bảng `procedure_log` và sau đó thực hiện lệnh `RAISE INFO` để thông báo cho procedure gọi biết về lỗi. Vì đây là một procedure nguyên tử (atomic), điều này sẽ dẫn đến việc lỗi được đưa ra lại ngay cả khi khối ngoại lệ không đưa ra lỗi. Mặc dù nó chỉ đưa ra thông báo thông tin (INFO), Redshift sẽ ghi đè điều này ở chế độ mặc định và một lỗi (ERROR) sẽ được đưa ra.
 
@@ -211,7 +211,7 @@ $$
 LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-11.png)
+![image.png](/images/3/3-011.png)
 
 Quy trình được lưu trữ thứ hai này sẽ chèn dữ liệu vào bảng stage_lineitem2 rồi gọi quy trình sẽ bị lỗi theo thiết kế.
 
@@ -219,7 +219,7 @@ Quy trình được lưu trữ thứ hai này sẽ chèn dữ liệu vào bảng
 CALL pr_insert_stage();
 ```
 
-![image.png](/images/3/3-12.png)
+![image.png](/images/3/3-012.png)
 
 Bạn sẽ thấy hai thông báo:
 
@@ -244,7 +244,7 @@ Vì stored procedure là nguyên tử (atomic), dữ liệu được chèn vào 
 SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 ```
 
-![image.png](/images/3/3-14.png)
+![image.png](/images/3/3-014.png)
 
 Bạn sẽ thấy rằng lỗi thủ tục pr_divide_by_zero đã được ghi lại trong khối ngoại lệ.
 
@@ -286,7 +286,7 @@ $$
 LANGUAGE plpgsql;
 ```
 
-![image.png](/images/3/3-15.png)
+![image.png](/images/3/3-015.png)
 
 ```jsx
 CALL pr_insert_stage_v2();
@@ -308,7 +308,7 @@ Bây giờ, hãy kiểm tra số lượng hàng trong bảng `stage_lineitem2`:
 SELECT COUNT(*) FROM stage_lineitem2;
 ```
 
-![image.png](/images/3/3-17.png)
+![image.png](/images/3/3-017.png)
 
 Vì stored procedure là không nguyên tử (non-atomic), dữ liệu được chèn vào bảng không bị hoàn tác. Câu lệnh chèn đã được tự động cam kết. Số lượng hàng trong bảng `stage_lineitem2` là 4,155,141.
 
@@ -316,7 +316,7 @@ Vì stored procedure là không nguyên tử (non-atomic), dữ liệu được 
 SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 ```
 
-![image.png](/images/3/3-18.png)
+![image.png](/images/3/3-018.png)
 
 Bạn sẽ thấy rằng lỗi thủ tục pr_divide_by_zero_v2 đã được ghi lại trong khối ngoại lệ giống như trong phiên bản nguyên tử.
 
@@ -360,7 +360,7 @@ from LINEITEM
 group by 1,2,3;
 ```
 
-![image.png](/images/3/3-20.png)
+![image.png](/images/3/3-0020.png)
 
 Bây giờ hãy thực hiện truy vấn bên dưới đã được viết lại để sử dụng chế độ xem cụ thể hóa. Lưu ý sự khác biệt về thời gian thực hiện truy vấn. Bạn nhận được kết quả tương tự trong vài giây.
 
@@ -410,6 +410,10 @@ limit 1000;
 ```
 
 ![image.png](/images/3/3-23.png)
+
+![image.png](/images/3/3-232.png)
+
+> Viết các truy vấn bổ sung có thể tận dụng chế độ xem được thực thể hóa của bạn nhưng không tham chiếu trực tiếp đến nó. Ví dụ: Tổng giá mở rộng theo khu vực.
 
 **3.7 Tổng hợp**
 
@@ -461,8 +465,9 @@ $$ language plpythonu;
 select f_py_greater (l_extendedprice, l_discount) from lineitem limit 10
 ```
 
-![image.png](/images/3/3-27.png)
 
+![image.png](/images/3/3-272.png)
+![image.png](/images/3/3-27.png)
 Ví dụ sau đây tạo hàm SQL so sánh hai số và trả về giá trị lớn hơn:
 
 ```jsx

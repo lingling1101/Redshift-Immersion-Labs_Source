@@ -15,7 +15,7 @@ All the labs are designed to run on Redshift new serverless feature. Amazon Reds
 
 Below diagram shows the key features you will be working with and how they are used in typical data warehouse environment.
 
-![image.png](/images/1/1-1.png)
+![image.png](/images/1/1-111.png)
 
 **The AWS resources needed to run these labs include:**
 
@@ -36,7 +36,7 @@ If you are conducting these labs on your own, use the following CFN template to 
 
 ![image.png](/images/1/1-2.png)
 
-![image.png](/images/1/1-3.png)
+![image.png](/images/1/1-31.png)
 
 **1.3 Configure client tool - Query editor V2**
 

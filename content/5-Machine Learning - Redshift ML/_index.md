@@ -82,7 +82,7 @@ CREATE TABLE bank_details_training(
 COPY bank_details_training from 's3://redshift-downloads/redshift-ml/workshop/bank-marketing-data/training_data/' REGION 'us-east-1' IAM_ROLE default CSV IGNOREHEADER 1 delimiter ';';
 ```
 
-![image.png](/images/5/5-1.png)
+![image.png](/images/5/5-01.png)
 
 Execute the following statements to create and load the inference table in Redshift. This data will be used to simulate new data which we can test against the model.
 
@@ -113,7 +113,7 @@ CREATE TABLE bank_details_inference(
 COPY bank_details_inference from 's3://redshift-downloads/redshift-ml/workshop/bank-marketing-data/inference_data/' REGION 'us-east-1' IAM_ROLE default CSV IGNOREHEADER 1 delimiter ';';
 ```
 
-![image.png](/images/5/5-2.png)
+![image.png](/images/5/5-02.png)
 
 **Create S3 bucket**
 
@@ -121,7 +121,7 @@ Before you create a model, you need to create a S3 bucket for storing intermedia
 
 ![image.png](/images/5/5-3.png)
 
-![image.png](/images/5/5-4.png)
+![image.png](/images/5/5-04.png)
 
 **5.3 Create model**
 
@@ -177,7 +177,9 @@ Run following command to check status of the model. It will be in TRAINING state
 show model model_bank_marketing;
 ```
 
-![image.png](/images/5/5-6.png)
+![image.png](/images/5/5-06.png)
+
+> As the training takes ~60minutes, you can move to next lab or a presentation. Please come back after an hour and execute rest of the steps.
 
 **5.4 Check accuracy and run inference query**
 
@@ -187,7 +189,7 @@ Hope you gave enough time (~60min) for model to complete training. Run the same 
 show model model_bank_marketing;
 ```
 
-![image.png](/images/5/5-7.png)
+![image.png](/images/5/5-07.png)
 
 Check Inference/Accuracy of the model. Run the following queries - the first checks the accuracy of the model and the second will use the function created by the pre built model for the inference and against the data set in inference table bank_details_inference.
 
@@ -234,7 +236,7 @@ You can identify which attributes are positively contributing to the prediction 
 SELECT explain_model('model_bank_marketing');
 ```
 
-![image.png](/images/5/5-10.png)
+![image.png](/images/5/5-010.png)
 
 You will get a message stating that model did not train long enough to generate explainability report. That is expected as the model trained with MAX_RUNTIME of 3600 seconds. Usually you should increase the `MAX_RUNTIME` to 9600 or above for Redshift to generate explainability report. That gives enough to complete the explainability report steps model training.
 

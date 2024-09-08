@@ -128,7 +128,7 @@ diststyle even;
 
 ![image.png](/images/2/2-2.png)
 
-![image.png](/images/2/2-3.png)
+![image.png](/images/2/2-33.png)
 
 **2.3 Tải dữ liệu**
 
@@ -207,13 +207,13 @@ Trong quá trình thiết lập một lần, bạn cần tạo một bucket S3 t
 
 Bucket S3 đã được tạo sẵn trong môi trường lab này. Điều hướng đến [AWS CloudFormation](https://ap-southeast-2.signin.aws.amazon.com/oauth?response_type=code&client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fcloudformation&redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fcloudformation%2Fhome%3FhashArgs%3D%2523%26isauthcode%3Dtrue%26oauthStart%3D1723994246570%26state%3DhashArgsFromTB_ap-southeast-2_4edb45c164185361&forceMobileLayout=0&forceMobileApp=0&code_challenge=9xZ7-RKc3ZqaBRZs2hRfaMaNN99JIO-vOWYdGlBdM6M&code_challenge_method=SHA-256) và nhấp vào stack 'cfn'. Trong tab 'Outputs', ghi lại giá trị của S3Bucket. Bạn sẽ cần giá trị này trong bước tiếp theo.
 
-![image.png](/images/2/2-5.png)
+![image.png](/images/2/2-55.png)
 
 Trong *Query Editor v2* (QEV2), đi đến **Settings** (góc dưới bên trái) → **Account settings** → **S3 bucket name**.
 
-![image.png](/images/2/2-6.png)
+![image.png](/images/2/2-61.png)
 
-![image.png](/images/2/2-7.png)
+![image.png](/images/2/2-72.png)
 
 *+ Nạp tập tin*
 
@@ -223,25 +223,26 @@ Hãy nạp tệp *Nation* đã tải xuống trên máy tính của bạn vào R
 
 1. Từ phần **resources** (tài nguyên), chọn và kết nối với nhóm công việc serverless của bạn.
 
-Chú ý:  Bảng *Nation* đã được tạo trong bước  [Create Tables](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab2#create-tables). Tuy nhiên, bạn cũng có thể tạo bảng thông qua giao diện người dùng bằng cách thực hiện theo các bước sau: **Create**-->**Table** trong bảng điều hướng bên trái của *Query Editor v2*.
+> **Chú ý:**
+> Bảng *Nation* đã được tạo trong bước  [Create Tables](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab2#create-tables). Tuy nhiên, bạn cũng có thể tạo bảng thông qua giao diện người dùng bằng cách thực hiện theo các bước sau: **Create**-->**Table** trong bảng điều hướng bên trái của *Query Editor v2*.
 
 2. Nhấp vào **Load data** -- chọn **Load from local file**  --Duyệt và chọn Nation.csv file đã tải xuống trước đó -- **Data conversion parameters** -- **Check Ignore header rows** -- **Next** -- **Table options** chọn nhóm công việc serverless của bạn -- **Database** = dev -- **Schema** = public -- **Table** = nation -- **Load data** -- Thông báo **Loading data from a local file succeeded**  sẽ hiển thị ở phía trên cùng.
 
-![image.png](/images/2/2-8.png)
+![image.png](/images/2/2-82.png)
 
-Chú ý: **Máy tính có hạn chế tải lên**
+> **Chú ý:** **Máy tính có hạn chế tải lên**
+> 
+> Nếu máy tính của bạn có các hạn chế không cho phép tải lên S3, bạn sẽ không thể nạp tệp cục bộ. Tuy nhiên, bạn có thể sử dụng *Query Editor v2* để nạp tệp trực tiếp từ S3. Để thực hiện điều này, hãy chọn tùy chọn **Load from S3 bucket** và nhập vị trí sau:
+> 
+> `s3://redshift-immersionday-labs/data/nation/Nation.csv`
+> 
+> Bạn cần chọn vị trí S3 là `us-west-2`.
+> 
+> Làm theo các hướng dẫn dưới đây như đã nêu. Thay đổi duy nhất là bạn sẽ cần chọn vai trò IAM khi chọn bảng để nạp. Sẽ chỉ có một vai trò khả dụng trong **AWS Sponsored Events** (`RedshiftServerlessImmersionRole`).
 
-Nếu máy tính của bạn có các hạn chế không cho phép tải lên S3, bạn sẽ không thể nạp tệp cục bộ. Tuy nhiên, bạn có thể sử dụng *Query Editor v2* để nạp tệp trực tiếp từ S3. Để thực hiện điều này, hãy chọn tùy chọn **Load from S3 bucket** và nhập vị trí sau:
+![image.png](/images/2/2-91.png)
 
-`s3://redshift-immersionday-labs/data/nation/Nation.csv`
-
-Bạn cần chọn vị trí S3 là `us-west-2`.
-
-Làm theo các hướng dẫn dưới đây như đã nêu. Thay đổi duy nhất là bạn sẽ cần chọn vai trò IAM khi chọn bảng để nạp. Sẽ chỉ có một vai trò khả dụng trong **AWS Sponsored Events** (`RedshiftServerlessImmersionRole`).
-
-![image.png](/images/2/2-9.png)
-
-![image.png](/images/2/2-10.png)
+![image.png](/images/2/2-101.png)
 
 **2.4 Kiểm tra độ chính xác dữ liệu**
 

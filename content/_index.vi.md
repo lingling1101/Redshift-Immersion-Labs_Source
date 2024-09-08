@@ -27,3 +27,4 @@ chapter : false
 5. [Học máy - Redshift ML](./5-Machine%20Learning%20-%20Redshift%20ML/)
 6. [Truy vấn Data Lake - Redshift Spectrum](./6-Query%20Data%20Lake%20-%20Redshift%20Spectrum/)
 7. [Vận hành](./7-Operations/)
+8. [Xóa các tài nguyên](./8-Clean/)

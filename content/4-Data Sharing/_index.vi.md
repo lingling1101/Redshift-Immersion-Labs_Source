@@ -44,7 +44,7 @@ Chạy lệnh sau trong trình chỉnh sửa truy vấn kết nối với endpoi
 -- This should be run on the producer 
 select current_namespace;
 ```
-![image.png](/images/4/4-1.png)
+![image.png](/images/4/4-01.png)
 
 Chạy lệnh sau trong trình chỉnh sửa truy vấn kết nối với cluster được cung cấp (consumer - consumercluster-xxxxxxxxxx). Ghi lại không gian tên từ kết quả đầu ra. Đảm bảo rằng trình chỉnh sửa kết nối với cluster tiêu thụ.
 
@@ -52,10 +52,8 @@ Chạy lệnh sau trong trình chỉnh sửa truy vấn kết nối với cluste
 -- This should be run on consumer 
 select current_namespace;
 ```
+![image.png](/images/4/4-012.png)
 
-![image.png](/images/4/4-2.png)
-
-![image.png](/images/4/4-3.png)
 
 **4.4 Tạo data share trên máy chủ sản xuất (producer)**
 
@@ -81,7 +79,7 @@ select * from SVV_DATASHARE_OBJECTS;
 Grant USAGE ON DATASHARE cust_share to NAMESPACE '<<consumer namespace>>'
 ```
 
-![image.png](/images/4/4-4.png)
+![image.png](/images/4/4-04.png)
 
 **4.5 Truy vấn dữ liệu từ máy chủ tiêu thụ (consumer)**
 
@@ -101,6 +99,81 @@ CREATE DATABASE cust_db FROM DATASHARE cust_share OF NAMESPACE '<<producer names
 select count(*) from cust_db.public.customer; -- count 15000000
 ```
 
-![image.png](/images/4/4-5.png)
+![image.png](/images/4/4-05.png)
+
+####[TÙY CHỌN]
+
+**- Tạo external schema trong consumer**
+
+Chạy lệnh sau đây trong cụm consumer đã được cung cấp (consumer - consumercluster-xxxxxxxxxx) sẽ tạo một external schema có tên là cust_db_public trong cơ sở dữ liệu dev của consumer. Điều này rất hữu ích khi bạn cần tất cả dữ liệu của mình có sẵn trong một cơ sở dữ liệu duy nhất, giúp đơn giản hóa các câu lệnh SQL bằng cách sử dụng cú pháp hai chấm thay vì ba chấm (như được minh họa trong bước tiếp theo). Bước này cũng cần thiết khi sử dụng một số công cụ BI để cho phép làm mới đúng metadata trong giao diện người dùng của chúng. Việc tạo external schema bằng cách sử dụng đối tượng datashare cũng có thể đơn giản hóa quá trình phân tách khối lượng công việc sang các cụm chia sẻ dữ liệu. Bằng cách tạo các external schema trong cụm consumer với cùng tên như trong producer, các truy vấn công việc có thể được chuyển sang cụm consumer mà không cần thay đổi gì.
+
+```jsx
+-- Create local schema
+CREATE EXTERNAL SCHEMA cust_db_public
+FROM REDSHIFT
+DATABASE 'cust_db'
+SCHEMA 'public';
+
+-- Select query to check the count
+select count(*) from cust_db_public.customer; -- count 15000000
+```
+
+![image.png](/images/4/4-6.png)
+
+**Lưu ý:** Bạn sẽ nhận được kết quả tương tự như bước trước, nhưng câu lệnh select sẽ sử dụng external schema mới.
+
+**- Tải dữ liệu cục bộ và kết hợp với dữ liệu được chia sẻ**
+
+Chạy các lệnh sau trong một tab trình chỉnh sửa truy vấn thuộc cụm đã được cung cấp (consumer - consumercluster-xxxxxxxxxx). Các lệnh sau được sử dụng để tạo và tải dữ liệu bảng orders, sau đó sẽ được kết hợp với dữ liệu khách hàng được chia sẻ từ endpoint của producer.
+
+```jsx
+-- Create orders table in provisioned cluster (consumer).
+DROP TABLE IF EXISTS orders;
+create table orders
+(  O_ORDERKEY bigint NOT NULL,  
+O_CUSTKEY bigint,  
+O_ORDERSTATUS varchar(1),  
+O_TOTALPRICE decimal(18,4),  
+O_ORDERDATE Date,  
+O_ORDERPRIORITY varchar(15),  
+O_CLERK varchar(15),  
+O_SHIPPRIORITY Integer,  O_COMMENT varchar(79))
+distkey (O_ORDERKEY)
+sortkey (O_ORDERDATE);
+
+-- Load orders table from public data set
+copy orders from 's3://redshift-immersionday-labs/data/orders/orders.tbl.'
+iam_role default region 'us-west-2' lzop delimiter '|' COMPUPDATE PRESET;
+
+-- Select count to verify the data load
+select count(*) from orders;  -- count 76000000
+```
+
+![image.png](/images/4/4-7.png)
+
+Chạy truy vấn BI dưới đây để tìm tổng giá bán theo phân khúc khách hàng và mức độ ưu tiên của đơn hàng, kết hợp dữ liệu đơn hàng được tải cục bộ với dữ liệu khách hàng được chia sẻ.
+
+```jsx
+SELECT c_mktsegment, o_orderpriority, sum(o_totalprice)
+FROM cust_db.public.customer c
+JOIN orders o on c_custkey = o_custkey
+GROUP BY c_mktsegment, o_orderpriority;
+```
+
+![image.png](/images/4/4-8.png)
+
+Nếu bạn đã tạo external schema ở bước trước, hãy chạy truy vấn dưới đây bằng local schema thay vì sử dụng cơ sở dữ liệu datashare. Điều này sẽ cung cấp cùng một kết quả như truy vấn trên.
+
+```jsx
+SELECT c_mktsegment, o_orderpriority, sum(o_totalprice)
+FROM cust_db_public.customer c
+JOIN orders o on c_custkey = o_custkey
+GROUP BY c_mktsegment, o_orderpriority;
+```
+
+![image.png](/images/4/4-9.png)
+
+
+
 
 

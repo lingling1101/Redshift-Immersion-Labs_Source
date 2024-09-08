@@ -10,7 +10,7 @@ pre = "<b>6. </b>"
 
 Trong bài thực hành này, chúng tôi sẽ hướng dẫn bạn cách truy vấn dữ liệu trong Amazon S3 Data Lake bằng Amazon Redshift mà không cần tải hoặc di chuyển dữ liệu. Chúng tôi cũng sẽ trình bày cách bạn có thể sử dụng các view để kết hợp dữ liệu trong Redshift Managed storage với dữ liệu trong S3. Bạn có thể truy vấn dữ liệu có cấu trúc và bán cấu trúc từ các tệp trong Amazon S3 mà không cần sao chép hoặc di chuyển dữ liệu vào các bảng của Amazon Redshift. 
 
-![image.png](/images/6/6-1.png)
+![image.png](/images/6/6-001.png)
 
 **Nội dung**
 
@@ -24,6 +24,8 @@ Trong bài thực hành này, chúng tôi sẽ hướng dẫn bạn cách truy v
 Bài thực hành này giả định rằng bạn đã khởi tạo một Redshift Serverless Warehouse. Nếu bạn chưa tạo Redshift Serverless Warehouse, hãy xem phần [Bắt Đầu](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1). Chúng tôi sẽ sử dụng Redshift Query Editor V2 trong bảng điều khiển Redshift cho bài thực hành này.
 
 Vui lòng tìm khu vực của bạn bằng cách làm theo hình ảnh bên dưới và chọn bộ dữ liệu s3 theo hướng dẫn cho khu vực của bạn.
+
+> Phòng thí nghiệm này yêu cầu không gian tên Redshift Serverless trong các vùng us-east-1(N. Virginia) hoặc us-west-2(Oregon) hoặc eu-west-1(Ireland) hoặc ap-northeast-1(Tokyo) vì dữ liệu trong s3 nằm ở bốn vùng này.
 
 **6.2 Mô tả trường hợp sử dụng**
 
@@ -50,7 +52,11 @@ Trong phần này của bài thực hành, chúng ta sẽ thực hiện các ho�
 - Xem xét kỹ dữ liệu lịch sử, có thể tổng hợp dữ liệu theo những cách mới để xem các xu hướng theo thời gian hoặc các khía cạnh khác.
 - Lưu ý rằng lược đồ phân vùng là Năm, Tháng, Loại (trong đó Loại là công ty taxi). Dưới đây là ảnh chụp màn hình: [https://s3.console.aws.amazon.com/s3/buckets/us-west-2.serverless-analytics/canonical/NY-Pub/](https://s3.console.aws.amazon.com/s3/buckets/us-west-2.serverless-analytics/canonical/NY-Pub/)
 
-![image.png](/images/6/6-3.png)
+> Region
+>
+> Nhấp vào liên kết ở trên có thể thay đổi vùng mặc định của bạn. Khi tiếp tục các bước tiếp theo, hãy đảm bảo vùng của bạn là chính xác trước khi tạo Glue Crawler.
+
+![image.png](/images/6/6-03.png)
 
 **Tạo lược đồ (và cơ sở dữ liệu) ngoài cho Redshift Spectrum**
 
@@ -106,7 +112,7 @@ Trong bài thực hành này, bạn sẽ sử dụng AWS Glue Crawler để tạ
 
 ![image.png](/images/6/6-11.png)
 
-![image.png](/images/6/6-12.png)
+![image.png](/images/6/6-012.png)
 
 **+** Quay lại **Glue Console**, làm mới cơ sở dữ liệu đích và chọn **spectrumdb**
 
@@ -118,7 +124,7 @@ Trong bài thực hành này, bạn sẽ sử dụng AWS Glue Crawler để tạ
 
 **+** Sau khi quá trình chạy crawler hoàn tất, bạn có thể thấy một bảng mới **ny_pub** trong **Glue Catalog**.
 
-![image.png](/images/6/6-15.png)
+![image.png](/images/6/6-015.png)
 
 **2. Tạo lược đồ ngoài adb305 trong Redshift và truy vấn từ bảng trong Glue catalog - ny_pub**
 
@@ -131,7 +137,7 @@ Trong bài thực hành này, bạn sẽ sử dụng AWS Glue Crawler để tạ
 
 Nhấp vào mục **Serverless dashboard** ở bên trái của bảng điều khiển. Nhấp vào không gian tên đã được cung cấp trước đó. Nhấp vào **Query data**.
 
-![image.png](/images/6/6-16.png)
+![image.png](/images/6/6-016.png)
 
 - Tạo một lược đồ ngoài **adb305** trỏ đến cơ sở dữ liệu **Glue Catalog** của bạn là **spectrumdb**.
 
@@ -142,7 +148,7 @@ IAM_ROLE default
 CREATE external DATABASE if not exists;
 ```
 
-![image.png](/images/6/6-17.png)
+![image.png](/images/6/6-017.png)
 
 **Pin-point the Blizzard**
 
@@ -193,7 +199,7 @@ WHERE year = 2016 AND month = 1 AND type = 'green';
 ANALYZE COMPRESSION workshop_das.taxi_201601;
 ```
 
-![image.png](/images/6/6-21.png)
+![image.png](/images/6/6-021.png)
 
 - Thêm vào bảng **taxi_201601** với câu lệnh **INSERT/SELECT** cho các công ty taxi khác.
 
@@ -228,7 +234,7 @@ CREATE VIEW adb305_view_NYTaxiRides AS
 WITH NO SCHEMA BINDING;
 ```
 
-![image.png](/images/6/6-24.png)
+![image.png](/images/6/6-024.png)
 
 **Giải thích hiển thị kế hoạch thực thi cho một câu lệnh truy vấn mà không chạy truy vấn**
 
@@ -246,7 +252,7 @@ GROUP BY 1,2,3 ORDER BY 1,2,3;
 
 ![image.png](/images/6/6-25.png)
 
-![image.png](/images/6/6-26.png)
+![image.png](/images/6/6-026.png)
 
 Lưu ý rằng **S3 Seq Scan** đã được thực hiện trên dữ liệu trên Amazon S3. Node **S3 Seq Scan** cho thấy bộ lọc: (passenger_count = 4) đã được xử lý trong lớp **Redshift Spectrum**.
 
