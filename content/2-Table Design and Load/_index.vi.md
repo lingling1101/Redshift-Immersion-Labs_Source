@@ -5,7 +5,7 @@ weight : 2
 chapter : false
 pre : " <b> 2. </b> "
 ---
-**II. Thiết kế bảng và tải dữ liệu**
+**2. Thiết kế bảng và tải dữ liệu**
 
 **Nội dung:**
 

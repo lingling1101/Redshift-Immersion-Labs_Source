@@ -5,7 +5,7 @@ weight : 5
 chapter : false
 pre : " <b> 5. </b> "
 ---
-**V. Học máy - Redshift ML**
+**5. Học máy - Redshift ML**
 
 Trong bài lab này, bạn sẽ tạo một mô hình sử dụng Redshift ML Auto.
 

@@ -5,7 +5,7 @@ weight : 5
 chapter : false
 pre : " <b> 5. </b> "
 ---
-**V. Machine Learning - Redshift ML**
+**5. Machine Learning - Redshift ML**
 
 In this lab you will create a model using Redshift ML Auto.
 

@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 7. </b> "
 ---
 
-**VII. Operations**
+**7. Operations**
 
 In this lab, you will go through the monitoring (from both console and system views),audit logging features, changing base RPU setting and limits.
 

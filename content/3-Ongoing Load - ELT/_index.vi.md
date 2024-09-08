@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 3. </b> "
 ---
 
-**III. Quá trình tải liên tục - ELT**
+**3. Quá trình tải liên tục - ELT**
 
 **Nội dung**
 

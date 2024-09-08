@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 1. </b> "
 ---
 
-**I. Bắt Đầu**
+**1. Bắt Đầu**
 
 Chào mừng bạn đến với Redshift Immersion Day!!
 

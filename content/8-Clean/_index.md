@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 8. </b> "
 ---
 
-**VIII. Clean up resources**
+**8. Clean up resources**
 
 **8.1 Delete Stacks**
 

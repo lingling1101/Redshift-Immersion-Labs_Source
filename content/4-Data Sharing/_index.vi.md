@@ -5,7 +5,7 @@ weight : 4
 chapter : false
 pre : " <b> 4. </b> "
 ---
-**IV. Chia sẻ dữ liệu**
+**4. Chia sẻ dữ liệu**
 
 Bạn sẽ thực hiện các bước để chia sẻ dữ liệu giữa một endpoint serverless và một cluster được cung cấp.
 

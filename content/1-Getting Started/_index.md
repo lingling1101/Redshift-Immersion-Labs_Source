@@ -5,7 +5,7 @@ weight : 1
 chapter : false
 pre : " <b> 1. </b> "
 ---
-**I. Getting started**
+**1. Getting started**
 
 Welcome to Redshift Immersion Day!!
 

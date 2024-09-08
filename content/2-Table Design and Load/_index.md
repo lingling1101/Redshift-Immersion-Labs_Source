@@ -5,7 +5,7 @@ weight : 2
 chapter : false
 pre : " <b> 2. </b> "
 ---
-**II. Table Design and Load**
+**2. Table Design and Load**
 
 **Contents:**
 

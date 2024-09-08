@@ -6,7 +6,7 @@ chapter = false
 pre = "<b>8. </b>"
 +++
 
-**VIII. Xóa các tài nguyên**
+**8. Xóa các tài nguyên**
 
 **8.1 Xóa Stacks**
 

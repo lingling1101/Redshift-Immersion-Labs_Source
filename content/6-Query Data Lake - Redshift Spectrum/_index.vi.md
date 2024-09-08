@@ -6,7 +6,7 @@ chapter = false
 pre = "<b>6. </b>"
 +++
 
-**VI. Truy vấn Data Lake - Redshift Spectrum**
+**6. Truy vấn Data Lake - Redshift Spectrum**
 
 Trong bài thực hành này, chúng tôi sẽ hướng dẫn bạn cách truy vấn dữ liệu trong Amazon S3 Data Lake bằng Amazon Redshift mà không cần tải hoặc di chuyển dữ liệu. Chúng tôi cũng sẽ trình bày cách bạn có thể sử dụng các view để kết hợp dữ liệu trong Redshift Managed storage với dữ liệu trong S3. Bạn có thể truy vấn dữ liệu có cấu trúc và bán cấu trúc từ các tệp trong Amazon S3 mà không cần sao chép hoặc di chuyển dữ liệu vào các bảng của Amazon Redshift. 
 

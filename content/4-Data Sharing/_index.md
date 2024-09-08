@@ -5,7 +5,7 @@ weight : 4
 chapter : false
 pre : " <b> 4. </b> "
 ---
-**IV. Data Sharing**
+**4. Data Sharing**
 
 In this lab, you will walk through steps for data sharing between a serverless endpoint and a provisioned cluster.
 

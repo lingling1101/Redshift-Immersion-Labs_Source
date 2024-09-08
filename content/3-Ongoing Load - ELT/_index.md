@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 3. </b> "
 ---
 
-**III. Ongoing Load - ELT**
+**3. Ongoing Load - ELT**
 
 **Contents**
 - Before you begin

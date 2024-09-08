@@ -6,7 +6,7 @@ chapter = false
 pre = "<b>7. </b>"
 +++
 
-**VII. Các hoạt động**
+**7. Các hoạt động**
 
 Trong bài thực hành này, bạn sẽ thực hiện việc giám sát (từ cả bảng điều khiển và các chế độ xem hệ thống), tính năng ghi nhật ký kiểm toán, thay đổi cài đặt và giới hạn RPU cơ bản.
 
