@@ -5,7 +5,8 @@ weight : 1
 chapter : false
 ---
 
-## Redshift Immersion Labs
+# Redshift Immersion Labs
+
 **Amazon Redshift** is a fully managed, petabyte-scale data warehouse solution that offers high speed and uses columnar storage to minimize I/O, providing high data compression rates and fast performance. This workshop series provides a set of exercises to help users get started with the Redshift platform. It also illustrates many built-in features of the platform.
 
 |     | Exercise Name                      | Description                                                                |

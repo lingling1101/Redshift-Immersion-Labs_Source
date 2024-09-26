@@ -6,11 +6,11 @@ chapter : false
 pre : " <b> 7. </b> "
 ---
 
-**7. Operations**
+### **7. Operations**
 
 In this lab, you will go through the monitoring (from both console and system views),audit logging features, changing base RPU setting and limits.
 
-**Contents**
+### **Contents**
 
 - Before you begin
 - Monitoring
@@ -18,11 +18,11 @@ In this lab, you will go through the monitoring (from both console and system vi
 - Audit logging
 - Changing RPUs and setting limits
 
-**7.1 Before you begin**
+### **7.1 Before you begin**
 
 This lab assumes that you have launched an **Amazon Redshift Serverless** endpoint. If you have not already done so, please see [Getting Started](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1) and follow the instructions there. We will use **Amazon Redshift [QueryEditorV2](https://console.aws.amazon.com/sqlworkbench/home)** and the [**Amazon Redshift Serverless**](https://console.aws.amazon.com/redshiftv2/home?#serverless-dashboard)  for this lab.
 
-**7.2 Monitoring**
+### **7.2 Monitoring**
 
 In this section, you will go through various monitoring options and set filters to experience the functionality. You will use the console to see query history, database performance and resource usage.
 
@@ -89,7 +89,7 @@ Navigate to the **Resource Monitoring** section on the left navigation pane.
 
 ![image.png](/images/7/7-010.png)
 
-**7.3 System Views**
+### **7.3 System Views**
 
 Below system views in **Amazon Redshift Serverless** are used to monitor query and workload usage. These views are located in the **pg_catalog** schema. These system views have been designed to give you the information needed to monitor Amazon Redshift Serverless, which are much simpler than various system views available for provisioned clusters.
 
@@ -158,7 +158,7 @@ ORDER BY query_id DESC;
 
 ![image.png](/images/7/7-13.png)
 
-**7.4 Audit logging**
+### **7.4 Audit logging**
 
 You can configure Amazon Redshift Serverless to export connection, user, and user-activity log data to a log group in Amazon CloudWatch Logs when creating workgroups
 
@@ -231,11 +231,11 @@ Select **Dev** database for your namespace to find out total number of tables as
 
 You can also export the CloudWatch log groups events to S3. Please see below example screen.
 
-**NOTE**: You may not be able to access this in lab environment. But you can try in your own environment.
+> **NOTE**: You may not be able to access this in lab environment. But you can try in your own environment.
 
 ![image.png](/images/7/7-025.png)
 
-**7.5 Changing RPUs and Setting limits**
+### **7.5 Changing RPUs and Setting limits**
 
 - Select your default workgroup, click on the **Limits** tab.
 - Click on **Edit** in **Base capacity in Redshift processing units (RPUs)** section.

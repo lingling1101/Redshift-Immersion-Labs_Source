@@ -5,11 +5,11 @@ weight : 5
 chapter : false
 pre : " <b> 5. </b> "
 ---
-**5. Machine Learning - Redshift ML**
+### **5. Machine Learning - Redshift ML**
 
 In this lab you will create a model using Redshift ML Auto.
 
-**Contents**
+### **Contents**
 
 - Before you begin
 - Data preparation
@@ -18,11 +18,11 @@ In this lab you will create a model using Redshift ML Auto.
 - Explainability
 - Before you leave
   
-**5.1 Before you begin**
+### **5.1 Before you begin**
 
 This lab assumes that you have launched an Amazon Redshift Serverless endpoint. If you have not already done so, please see [**Getting Started**](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1) and follow the instructions there. We will use [Amazon Redshift QueryEditorV2](https://console.aws.amazon.com/sqlworkbench/home)  for this lab.
 
-**5.2 Data preparation**
+### **5.2 Data preparation**
 
 The Bank Marketing data set contains direct marketing campaigns of a Portuguese banking institution. The marketing campaigns were based on phone calls. Often, more than one contact to the same client was required, in order to assess (evaluate) if the product (bank term deposit) would be ('yes') or not ('no') subscribed.
 
@@ -123,7 +123,7 @@ Before you create a model, you need to create a S3 bucket for storing intermedia
 
 ![image.png](/images/5/5-04.png)
 
-**5.3 Create model**
+### **5.3 Create model**
 
 Complete Autopilot generated with minimal user inputs. This will be a binary classification problem but auto pilot will choose the relevant algorithm based on the data and inputs
 
@@ -181,7 +181,7 @@ show model model_bank_marketing;
 
 > As the training takes ~60minutes, you can move to next lab or a presentation. Please come back after an hour and execute rest of the steps.
 
-**5.4 Check accuracy and run inference query**
+### **5.4 Check accuracy and run inference query**
 
 Hope you gave enough time (~60min) for model to complete training. Run the same SQL Query as above to check status of the model. The model state should be in 'Ready' for you to proceed. Pay attention to the validation:f1 score - it will be between 0 and 1, the closer to 1, the better the model.
 
@@ -228,7 +228,7 @@ from term_data GROUP BY 1;.
 
 ![image.png](/images/5/5-9.png)
 
-**5.5 Explainability**
+### **5.5 Explainability**
 
 You can identify which attributes are positively contributing to the prediction and how much is the contribution score by generating model explainability report. Please run below command to see model explainability.
 

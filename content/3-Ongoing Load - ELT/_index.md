@@ -6,9 +6,9 @@ chapter : false
 pre : " <b> 3. </b> "
 ---
 
-**3. Ongoing Load - ELT**
+### **3. Ongoing Load - ELT**
 
-**Contents**
+### **Contents**
 - Before you begin
 - Stored procedures - Ongoing loads
 - Stored procedures - Exception handling
@@ -16,7 +16,7 @@ pre : " <b> 3. </b> "
 - User defined functions
 - Before you leave
 
-**3.1 Before you begin**
+### **3.1 Before you begin**
 
 This lab assumes that you have launched an Amazon Redshift Serverless endpoint. If you have not already done so, please see Getting Started and follow the instructions there. We will use Amazon Redshift QueryEditorV2  for this lab.
 
@@ -28,7 +28,7 @@ With ELT, data transformation happens in the target data warehouse rather than r
 
 ![image.png](/images/3/3-2.png)
 
-**3.2 Stored Procedures - Ongoing loads**
+### **3.2 Stored Procedures - Ongoing loads**
 
 Stored procedures are commonly used to encapsulate logic for data transformation, data validation, and business-specific logic. By combining multiple SQL steps into a stored procedure, you can reduce round trips between your applications and the database. A stored procedure can incorporate data definition language (DDL) and data manipulation language (DML) in addition to SELECT queries. A stored procedure doesn’t have to return a value. You can use the PL/pgSQL procedural language, including looping and conditional expressions, to control logical flow.
 
@@ -118,7 +118,7 @@ SELECT count(*) FROM "dev"."public"."lineitem"; --306008217
 
 ![image.png](/images/3/3-7.png)
 
-**3.3 Stored Procedures - Exception Handling**
+### **3.3 Stored Procedures - Exception Handling**
 
 This next section covers exception handling within stored procedures. Stored procedures support exception handling in the following format:
 
@@ -138,7 +138,7 @@ Exceptions are handled in stored procedures differently based on the atomic or n
 - **Atomic (default):** exceptions (errors) are always re-raised
 - **Non-atomic:** exceptions are handled and you can choose to re-raise or not
 
-**Note:** When calling a stored procedure from another, the stored procedures must have matching transaction modes or else you will see the following error: Stored procedure created in one transaction mode cannot be invoked from another procedure in a different transaction mode
+> **Note:** When calling a stored procedure from another, the stored procedures must have matching transaction modes or else you will see the following error: Stored procedure created in one transaction mode cannot be invoked from another procedure in a different transaction mode
 
 To get started, we need to first create a table for the stored procedures in this section.
 
@@ -158,7 +158,7 @@ CREATE TABLE procedure_log
 
 ![image.png](/images/3/3-99.png)
 
-**3.4 Atomic**
+### **3.4 Atomic**
 
 Stored procedures in Redshift are atomic by default which means you have transaction control for the statements in the procedure. If you choose to not include COMMIT or ROLLBACK in the stored procedure, then all statements are handled in a single transaction. It is important to know that in the default atomic mode, exceptions are always re-raised.
 
@@ -251,7 +251,7 @@ SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 
 You should see that the pr_divide_by_zero procedure error was captured in the exception block.
 
-**3.5 Non-atomic**
+### **3.5 Non-atomic**
 
 Stored procedures can also be created with the `NONATOMIC` option which will automatically `COMMIT` after each statement. When an ERROR exception happens in a stored procedure, the exception is not always re-raised. Instead, you can choose to "handle" the error and continue subsequent statements in the stored procedure.
 
@@ -323,7 +323,7 @@ SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 
 You should see that the pr_divide_by_zero_v2 procedure error was captured in the exception block just like in the atomic version.
 
-**3.6 Materialized Views**
+### **3.6 Materialized Views**
 
 In a data warehouse environment, applications often need to perform complex queries on large tables—for example, SELECT statements that perform multi-table joins and aggregations on the tables that contain billions of rows. Processing these queries can be expensive in terms of system resources and the time it takes to compute the results.
 
@@ -418,7 +418,7 @@ limit 1000;
 
 > Write additional queries which can leverage your materialized view but which do not directly reference it. For example, Total Extendedprice by Region.
 
-**3.7 Bringing it together**
+### **3.7 Bringing it together**
 
 Let’s see if Redshift is automatically refresh materialized view after lineitem table Data Changes.
 
@@ -443,7 +443,7 @@ and datepart(year, o_orderdate) = 1998 and datepart(month, o_orderdate) = 8;
 
 Run the below queries on the MV and compare with the value you had noted previously. You will see SUM has changed which indicates that Redshift has identified changes that have taken place in the base table or tables, and then applied those changes to the materialized view.
 
-**Notion:** the materialized view refresh is asynchronous. For this lab, expect ~5min for the data to be refreshed after you called the `lineitem_incremental` procedure:
+> **Notion:** the materialized view refresh is asynchronous. For this lab, expect ~5min for the data to be refreshed after you called the `lineitem_incremental` procedure:
 
 ```jsx
 select SUM(TOTAL_QTY) Total_Qty from supplier_shipmode_agg;
@@ -451,7 +451,7 @@ select SUM(TOTAL_QTY) Total_Qty from supplier_shipmode_agg;
 
 ![image.png](/images/3/3-26.png)
 
-**3.8 User Defined Functions**
+### **3.8 User Defined Functions**
 
 Redshift supports scalar user-defined function (UDF) using either a SQL SELECT clause or a Python program. The following example creates a Python function that compares two numbers and returns the larger value:
 

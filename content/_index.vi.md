@@ -5,6 +5,8 @@ weight : 1
 chapter : false
 ---
 
+# Redshift Immersion Labs
+
 **Amazon Redshift** là một giải pháp kho dữ liệu quy mô petabyte, quản lý hoàn toàn, với tốc độ nhanh và sử dụng lưu trữ cột để giảm thiểu IO, cung cấp tỷ lệ nén dữ liệu cao và hiệu suất nhanh. Bộ hội thảo này cung cấp một loạt các bài tập giúp người dùng bắt đầu sử dụng nền tảng Redshift. Nó cũng giúp minh họa nhiều tính năng được tích hợp sẵn trong nền tảng.
 
 

@@ -5,20 +5,20 @@ weight : 6
 chapter : false
 pre : " <b> 6. </b> "
 ---
-**6. Query Data Lake - Redshift Spectrum**
+### **6. Query Data Lake - Redshift Spectrum**
 
 In this lab, we show you how to query data in your Amazon S3 data lake with Amazon Redshift without loading or moving data. We will also demonstrate how you can leverage views which union data in Redshift Managed storage with data in S3. You can query structured and semi-structured data from files in Amazon S3 without having to copy or move data into Amazon Redshift tables. For latest guide on the file types that can be queried with Redshift Spectrum, please refer to supported data formats.
 
 ![image.png](/images/6/6-001.png)
 
-**Contents**
+### **Contents**
 
 - Before you begin
 - Use-case description
 - Instructions
 - Before you leave
 
-**6.1 Before you begin**
+### **6.1 Before you begin**
 
 This lab assumes you have launched a Redshift Serverless Warehouse. If you have not created Redshift Serverless warehouse see [Getting Started](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1). We will use the Redshift Query Editor V2 in the Redshift console for this lab.
 
@@ -26,7 +26,7 @@ Please find your region by following the image below and select s3 data sets as 
 
 > This lab requires a Redshift Serverless namespace in us-east-1(N. Virginia) or us-west-2(Oregon) or eu-west-1(Ireland) or ap-northeast-1(Tokyo) regions as the data in s3 is located in these four regions.
 
-**6.2 Use-Case description**
+### **6.2 Use-Case description**
 
 **Objective**: Derive data insights to showcase the effect of blizzard on number of taxi rides in January 2016.
 
@@ -45,9 +45,9 @@ Please find your region by following the image below and select s3 data sets as 
 Below is an overview of the use case steps involved in this lab.
 ![image.png](/images/6/6-2.png)
 
-**6.3 Instructions**
+### **6.3 Instructions**
 
-**1. Create and run Glue crawler to populate Glue data catalog**
+### **1. Create and run Glue crawler to populate Glue data catalog**
 
 In this part of the lab, we will perform following activities:
 
@@ -135,7 +135,7 @@ In this lab, you will use AWS Glue Crawler to create external table **adb305.ny_
 
 ![image.png](/images/6/6-015.png)
 
-**2. Create external schema adb305 in Redshift and select from Glue catalog table - ny_pub**
+### **2. Create external schema adb305 in Redshift and select from Glue catalog table - ny_pub**
 
 **+** Go to **Redshift console**.
 
@@ -176,7 +176,7 @@ ORDER BY 2;
 
 ![image.png](/images/6/6-18.png)
 
-**3. Create internal schema workshop_das**
+### **3. Create internal schema workshop_das**
 
 Create a schema **workshop_das** for tables that will reside on the **Redshift Managed Storage**.
 
@@ -186,7 +186,7 @@ CREATE SCHEMA workshop_das;
 
 ![image.png](/images/6/6-19.png)
 
-**4. Run CTAS to create and load Redshift table workshop_das.taxi_201601 by selecting from external table**
+### **4. Run CTAS to create and load Redshift table workshop_das.taxi_201601 by selecting from external table**
 
 Create table **workshop_das.taxi_201601** to load data for **green** taxi company for January 2016
 
@@ -199,7 +199,7 @@ WHERE year = 2016 AND month = 1 AND type = 'green';
 
 ![image.png](/images/6/6-20.png)
 
-**Note**: What about column compression/encoding? Remember that on a CTAS, Amazon Redshift automatically assigns compression encoding as follows:
+> **Note**: What about column compression/encoding? Remember that on a CTAS, Amazon Redshift automatically assigns compression encoding as follows:
 
 - Columns that are defined as sort keys are assigned RAW compression.
 - Columns that are defined as BOOLEAN, REAL, or DOUBLE PRECISION, or GEOMETRY data types are assigned RAW compression.
@@ -225,7 +225,7 @@ WHERE year = 2016 AND month = 1 AND type != 'green');
 
 ![image.png](/images/6/6-22.png)
 
-**5. Drop 201601 partitions from external table**
+### **5. Drop 201601 partitions from external table**
 
 Now that we've loaded all January, 2016 data, we can remove the partitions from the Spectrum table so there is no overlap between the **Redshift Managed Storage (RMS)** table and the **Spectrum** table.
 
@@ -237,7 +237,7 @@ ALTER TABLE adb305.ny_pub DROP PARTITION(year=2016, month=1, type='yellow');
 
 ![image.png](/images/6/6-23.png)
 
-**6. Create combined view public.adb305_view_NY_TaxiRides**
+### **6. Create combined view public.adb305_view_NY_TaxiRides**
 
 ```jsx
 CREATE VIEW adb305_view_NYTaxiRides AS

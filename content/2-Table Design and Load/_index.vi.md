@@ -5,9 +5,9 @@ weight : 2
 chapter : false
 pre : " <b> 2. </b> "
 ---
-**2. Thiết kế bảng và tải dữ liệu**
+### **2. Thiết kế bảng và tải dữ liệu**
 
-**Nội dung:**
+### **Nội dung:**
 
 - Trước khi bắt đầu
 - Tạo bảng
@@ -16,11 +16,11 @@ pre : " <b> 2. </b> "
 - Bảo trì bảng tự động - ANALYZE và VACUUM
 - Trước khi rời bỏ
 
-**2.1 Trước khi bắt đầu**
+### **2.1 Trước khi bắt đầu**
 
 Bài lab này giả định rằng bạn đã khởi chạy một endpoint Amazon Redshift Serverless. Nếu bạn chưa làm như vậy, hãy xem phần [Bắt đầu](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1) và làm theo hướng dẫn ở đó. Chúng ta sẽ sử dụng Amazon Redshift [QueryEditorV2](https://ap-southeast-2.console.aws.amazon.com/sqlworkbench/home?region=ap-southeast-2#/account/configuration) cho bài lab này.
 
-**2.2. Tạo bảng**
+### **2.2. Tạo bảng**
 
 Amazon Redshift là một kho dữ liệu tuân thủ chuẩn ANSI SQL. Bạn có thể tạo bảng bằng các câu lệnh [CREATE TABLE](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_TABLE_NEW.html) quen thuộc.
 
@@ -130,7 +130,7 @@ diststyle even;
 
 ![image.png](/images/2/2-33.png)
 
-**2.3 Tải dữ liệu**
+### **2.3 Tải dữ liệu**
 
 Trong bài lab này, bạn sẽ học các phương pháp sau để tải dữ liệu vào Redshift:
 
@@ -191,7 +191,7 @@ Thời gian ước tính để tải dữ liệu như sau. Trong khi chờ quá 
 - LINEITEM - (303M rows) - 22s
 - PARTSUPPLIER - (80M rows) - 15s
 
-**Lưu ý**: Một số điểm chính rút ra từ câu lệnh COPY ở trên.
+> **Lưu ý**: Một số điểm chính rút ra từ câu lệnh COPY ở trên.
 
 - **COMPUPDATE PRESET ON** sẽ gán mã hóa nén theo các thực tiễn tốt nhất của Amazon Redshift liên quan đến kiểu dữ liệu của cột nhưng không phân tích dữ liệu trong bảng.
 - Lệnh **COPY** cho bảng **REGION** chỉ định một tệp cụ thể (`region.tbl.lzo`), trong khi lệnh **COPY** cho các bảng khác chỉ định một tiền tố cho nhiều tệp (`lineitem.tbl.`).
@@ -244,7 +244,7 @@ Hãy nạp tệp *Nation* đã tải xuống trên máy tính của bạn vào R
 
 ![image.png](/images/2/2-101.png)
 
-**2.4 Kiểm tra độ chính xác dữ liệu**
+### **2.4 Kiểm tra độ chính xác dữ liệu**
 
 Hãy thực hiện một kiểm tra nhanh về số lượng trên một vài bảng để đảm bảo rằng dữ liệu đã được tải lên như mong đợi. Bạn có thể mở một trình soạn thảo mới và chạy các truy vấn dưới đây nếu quá trình sao chép vẫn đang tải một số bảng.
 
@@ -265,7 +265,7 @@ select count(*) from orders;
 
 ![image.png](/images/2/2-13.png)
 
-**2.5 Khắc phục sự cố tải dữ liệu**
+### **2.5 Khắc phục sự cố tải dữ liệu**
 
 Để khắc phục các vấn đề liên quan đến việc tải dữ liệu, bạn có thể truy vấn bảng `SYS_LOAD_ERROR_DETAIL`.
 
@@ -297,7 +297,7 @@ select * from SYS_LOAD_ERROR_DETAIL;
 
 Lưu ý rằng có một hàng cho cột c_nationkey có kiểu dữ liệu int với thông báo lỗi "Chữ số không hợp lệ, Giá trị 'h', Pos 1" cho biết rằng bạn đang cố tải ký tự vào một cột số nguyên.
 
-**2.6 Bảo trì bảng tự động - ANALYZE và VACUUM**
+### **2.6 Bảo trì bảng tự động - ANALYZE và VACUUM**
 
 - **Phân Tích (ANALYZE):**
 

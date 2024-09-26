@@ -6,9 +6,9 @@ chapter = false
 pre = "<b>8. </b>"
 +++
 
-**8. Xóa các tài nguyên**
+### **8. Xóa các tài nguyên**
 
-**8.1 Xóa Stacks**
+### **8.1 Xóa Stacks**
 
 - Vào CloudFormation
 - Chọn Stack 'RedshiftImmersionLab'
@@ -16,7 +16,7 @@ pre = "<b>8. </b>"
 
 ![image.png](/images/8/8-1.png)
 
-**8.2 Xóa Crawlers**
+### **8.2 Xóa Crawlers**
  
 - Vào AWS Glue
 - Vào mục Crawlers
@@ -26,7 +26,7 @@ pre = "<b>8. </b>"
   
 ![image.png](/images/8/8-2.png)
 
-**8.3 Xóa Tables**
+### **8.3 Xóa Tables**
 
 - Vào AWS Glue
 - Vào mục Tables
@@ -35,7 +35,7 @@ pre = "<b>8. </b>"
 
 ![image.png](/images/8/8-3.png)
 
-**8.3 Xóa S3 buckets**
+### **8.4 Xóa S3 buckets**
 
 - Nhấn chọn bucket 'tesanalytics-11012003'
 

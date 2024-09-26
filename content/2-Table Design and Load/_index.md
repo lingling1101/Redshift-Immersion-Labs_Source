@@ -5,9 +5,9 @@ weight : 2
 chapter : false
 pre : " <b> 2. </b> "
 ---
-**2. Table Design and Load**
+### **2. Table Design and Load**
 
-**Contents:**
+### **Contents:**
 
 - Before you begin
 - Create tables
@@ -16,11 +16,11 @@ pre : " <b> 2. </b> "
 - Automatic table maintenance - ANALYZE and VACUUM
 - Before you leave
 
-**2.1 Before you begin**
+### **2.1 Before you begin**
 
 This lab assumes that you have launched an Amazon Redshift Serverless endpoint. If you have not already done so, please see [Getting Started](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1) and follow the instructions there. We will use Amazon Redshift [QueryEditorV2](https://ap-southeast-2.console.aws.amazon.com/sqlworkbench/home?region=ap-southeast-2#/account/configuration) for this lab.
 
-**2.2 Create Tables**
+### **2.2 Create Tables**
 
 Amazon Redshift is an ANSI SQL compliant data warehouse. You can create tables using familiar [CREATE TABLE](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_TABLE_NEW.html) statements.
 
@@ -130,7 +130,7 @@ diststyle even;
 
 ![image.png](/images/2/2-33.png)
 
-**2.3 Data Loading**
+### **2.3 Data Loading**
 
 In this lab, you will learn following approaches to load data into Redshift.
 
@@ -191,7 +191,7 @@ The estimated time to load the data is as follows. While waiting for the copy pr
 - LINEITEM - (303M rows) - 22s
 - PARTSUPPLIER - (80M rows) - 15s
   
-**Note:** A few key takeaways from the above COPY statements.
+> **Note:** A few key takeaways from the above COPY statements.
 
 - **COMPUPDATE PRESET ON** will assign compression using the Amazon Redshift best practices related to the data type of the column but without analyzing the data in the table.
 
@@ -248,7 +248,7 @@ Let us load the downloaded *Nation* file on your desktop into Redshift.
 
 ![image.png](/images/2/2-101.png)
 
-**2.4 Load Validation**
+### **2.4 Load Validation**
 
 Let us do a quick check of counts on few tables to ensure data is loaded as expected. You can open a new editor and run below queries if the copy process is still loading some tables.
 
@@ -269,7 +269,7 @@ select count(*) from orders;
 
 ![image.png](/images/2/2-13.png)
 
-**2.5 Troubleshooting Loads**
+### **2.5 Troubleshooting Loads**
 
 To troubleshoot any data load issues, you can query `SYS_LOAD_ERROR_DETAIL`.
 
@@ -301,7 +301,7 @@ select * from SYS_LOAD_ERROR_DETAIL;
 
 Notice that there is one row for the column c_nationkey with datatype int with an error message "Invalid digit, Value 'h', Pos 1" indicating that you are trying to load character into an integer column.
 
-**2.6 Automatic Table Maintenance - ANALYZE and VACUUM**
+### **2.6 Automatic Table Maintenance - ANALYZE and VACUUM**
 
 - **Analyze:**
 

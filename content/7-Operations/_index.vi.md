@@ -6,11 +6,11 @@ chapter = false
 pre = "<b>7. </b>"
 +++
 
-**7. Các hoạt động**
+### **7. Các hoạt động**
 
 Trong bài thực hành này, bạn sẽ thực hiện việc giám sát (từ cả bảng điều khiển và các chế độ xem hệ thống), tính năng ghi nhật ký kiểm toán, thay đổi cài đặt và giới hạn RPU cơ bản.
 
-**Nội dung**
+### **Nội dung**
 
 - Trước khi bắt đầu
 - Giám sát
@@ -18,11 +18,11 @@ Trong bài thực hành này, bạn sẽ thực hiện việc giám sát (từ c
 - Ghi nhật ký kiểm toán
 - Thay đổi RPU và đặt giới hạn
 
-**7.1 Trước khi bắt đầu**
+### **7.1 Trước khi bắt đầu**
 
 Bài thực hành này giả định rằng bạn đã khởi tạo một điểm cuối **Amazon Redshift Serverless**. Nếu bạn chưa thực hiện, vui lòng xem phần  [Bắt Đầu](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1) và làm theo hướng dẫn ở đó. Chúng tôi sẽ sử dụng **Amazon Redshift [QueryEditorV2](https://console.aws.amazon.com/sqlworkbench/home)** và bảng điều khiển [**Amazon Redshift Serverless**](https://console.aws.amazon.com/redshiftv2/home?#serverless-dashboard) cho bài thực hành này.
 
-**7.2 Giám sát**
+### **7.2 Giám sát**
 
 Trong phần này, bạn sẽ trải nghiệm các tùy chọn giám sát khác nhau và thiết lập bộ lọc để trải nghiệm chức năng. Bạn sẽ sử dụng bảng điều khiển để xem lịch sử truy vấn, hiệu suất cơ sở dữ liệu và việc sử dụng tài nguyên.
 
@@ -88,7 +88,7 @@ grant role sys:monitor to "IAMR:TeamRole"
 
 ![image.png](/images/7/7-010.png)
 
-**7.3 Chế độ xem hệ thống**
+### **7.3 Chế độ xem hệ thống**
 
 Dưới đây là các chế độ xem hệ thống trong **Amazon Redshift Serverless** được sử dụng để giám sát truy vấn và sử dụng khối lượng công việc. Các chế độ xem này nằm trong lược đồ **pg_catalog**. Các chế độ xem hệ thống này đã được thiết kế để cung cấp thông tin cần thiết để giám sát Amazon Redshift Serverless, đơn giản hơn nhiều so với các chế độ xem hệ thống khác có sẵn cho các cluster đã cấp phát.
 
@@ -157,7 +157,7 @@ ORDER BY query_id DESC;
 
 ![image.png](/images/7/7-13.png)
 
-**7.4 Ghi nhật ký kiểm toán**
+### **7.4 Ghi nhật ký kiểm toán**
 
 Bạn có thể cấu hình Amazon Redshift Serverless để xuất dữ liệu kết nối, người dùng và hoạt động của người dùng vào một nhóm nhật ký trong Amazon CloudWatch Logs khi tạo các nhóm công việc.
 
@@ -230,11 +230,11 @@ Chọn cơ sở dữ liệu **Dev** cho namespace của bạn để tìm tổng 
 
 Bạn cũng có thể xuất các sự kiện nhóm nhật ký CloudWatch sang S3. 
 
-**LƯU Ý**: Bạn có thể không truy cập được điều này trong môi trường thực hành. Nhưng bạn có thể thử trong môi trường của riêng bạn.
+> **LƯU Ý**: Bạn có thể không truy cập được điều này trong môi trường thực hành. Nhưng bạn có thể thử trong môi trường của riêng bạn.
 
 ![image.png](/images/7/7-025.png)
 
-**7.5 Thay đổi RPUs và đặt giới hạn**
+### **7.5 Thay đổi RPUs và đặt giới hạn**
 
 - Chọn default workgroup của bạn, nhấp vào tab **Limits** (Giới hạn).
 - Nhấp vào **Edit** (Chỉnh sửa) trong phần **Base capacity in Redshift processing units (RPUs)** (Công suất cơ bản bằng đơn vị xử lý Redshift - RPU).

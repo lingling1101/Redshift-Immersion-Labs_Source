@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 1. </b> "
 ---
 
-**1. Bắt Đầu**
+### **1. Bắt đầu**
 
 Chào mừng bạn đến với Redshift Immersion Day!!
 
@@ -24,12 +24,12 @@ Hình dưới đây cho thấy các tính năng chính mà bạn sẽ làm việ
 - Một cụm Redshift Provisioned trong cùng một môi trường mạng để sử dụng trong bài tập chia sẻ dữ liệu.
 - Một vai trò mặc định được đính kèm vào các môi trường của bạn. Để tìm hiểu thêm về cách ủy quyền cho Amazon Redshift truy cập vào các dịch vụ AWS khác, xem tài liệu về [Tạo vai trò IAM mặc định cho Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/default-iam-role.html).
 
-**1.1 AWS-Sponsored Immersion Day**
+### **1.1 AWS-Sponsored Immersion Day**
 
 Nếu bạn đang thực hiện các bài tập này như một phần của AWS-Sponsored Immersion Day, một tài khoản lab đã được tạo với các tài nguyên ở trên. Để biết hướng dẫn về cách kết nối với môi trường của bạn, xem [Tham gia sự kiện hội thảo](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab0).
 
 
-**1.2 Self-paced Immersion Day**
+### **1.2 Self-paced Immersion Day**
 Nếu bạn đang tự thực hiện các bài tập này, hãy sử dụng mẫu CFN sau để khởi chạy các tài nguyên cần thiết trong tài khoản AWS của bạn.
 
 [Launch Stack](https://console.aws.amazon.com/cloudformation/home?#/stacks/new?stackName=RedshiftImmersionLab&templateURL=https://s3-us-west-2.amazonaws.com/redshift-immersionday-labs/immersionserverless.yaml)
@@ -39,7 +39,7 @@ Nếu bạn đang tự thực hiện các bài tập này, hãy sử dụng mẫ
 
 ![image.png](/images/1/1-31.png)
 
-**1.3 Cấu Hình Công Cụ Khách Hàng - Query Editor V2**
+### **1.3 Cấu hình công cụ khách hàng - Query Editor V2**
 
 Khi bạn đã có quyền truy cập vào tài khoản với các tài nguyên cần thiết, hãy kiểm tra xem bạn có thể kết nối với môi trường Redshift của mình hay không. Các bài tập này sử dụng Query Editor v2 dựa trên web của Redshift. Hãy điều hướng đến [Query Editor v2](https://ap-southeast-1.console.aws.amazon.com/sqlworkbench/home?region=ap-southeast-1#/client).
 
@@ -61,7 +61,7 @@ Password: Awsuser123
 ```
 ![image.png](/images/1/1-6.png)
 
-**1.4 Chạy truy vấn mẫu**
+### **1.4 Chạy truy vấn mẫu**
 
 - Chạy truy vấn sau để liệt kê các người dùng trong cụm Redshift:
 

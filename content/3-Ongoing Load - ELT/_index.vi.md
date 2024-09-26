@@ -6,9 +6,9 @@ chapter : false
 pre : " <b> 3. </b> "
 ---
 
-**3. Quá trình tải liên tục - ELT**
+### **3. Quá trình tải liên tục - ELT**
 
-**Nội dung**
+### **Nội dung**
 
 - Trước khi bắt đầu
 - Stored Procedures - Tải dữ liệu đang diễn ra
@@ -17,7 +17,7 @@ pre : " <b> 3. </b> "
 - User Defined Functions
 - Trước khi kết thúc
 
-**3.1 Trước khi bắt đầu**
+### **3.1 Trước khi bắt đầu**
 
 Bản lab này giả định rằng bạn đã khởi chạy một điểm cuối Amazon Redshift Serverless. Nếu bạn chưa làm như vậy, vui lòng xem phần Bắt đầu và làm theo các hướng dẫn tại đó. Chúng ta sẽ sử dụng Amazon Redshift QueryEditorV2 cho bản lab này.
 
@@ -29,7 +29,7 @@ Với ELT (Extract, Load, Transform), việc chuyển đổi dữ liệu diễn 
 
 ![image.png](/images/3/3-2.png)
 
-**3.2 Stored Procedures - Tải dữ liệu đang diễn ra**
+### **3.2 Stored Procedures - Tải dữ liệu đang diễn ra**
 
 Stored procedures thường được sử dụng để đóng gói logic cho việc chuyển đổi dữ liệu, xác thực dữ liệu, và logic đặc thù của doanh nghiệp. Bằng cách kết hợp nhiều bước SQL vào một stored procedure, bạn có thể giảm bớt số lần trao đổi giữa ứng dụng của bạn và cơ sở dữ liệu. Một stored procedure có thể bao gồm ngôn ngữ định nghĩa dữ liệu (DDL) và ngôn ngữ thao tác dữ liệu (DML) bên cạnh các truy vấn SELECT. Stored procedure không bắt buộc phải trả về giá trị. Bạn có thể sử dụng ngôn ngữ thủ tục PL/pgSQL, bao gồm các vòng lặp và biểu thức điều kiện, để điều khiển luồng logic.
 
@@ -118,7 +118,7 @@ SELECT count(*) FROM "dev"."public"."lineitem"; --306008217
 
 ![image.png](/images/3/3-7.png)
 
-**3.3 Stored Procedures - Xử lý Ngoại lệ**
+### **3.3 Stored Procedures - Xử lý Ngoại lệ**
 
 Phần tiếp theo đề cập đến việc xử lý ngoại lệ trong stored procedures. Stored procedures hỗ trợ xử lý ngoại lệ theo định dạng sau:
 
@@ -138,7 +138,7 @@ Các ngoại lệ được xử lý trong stored procedures khác nhau dựa tr�
 - **Nguyên tử (atomic) (mặc định):** Các ngoại lệ (lỗi) luôn được đưa ra lại.
 - **Không nguyên tử (non-atomic):** Các ngoại lệ được xử lý và bạn có thể chọn việc đưa ra lại hay không.
 
-**Lưu ý:** Khi gọi một stored procedure từ một stored procedure khác, các stored procedures phải có chế độ giao dịch (transaction mode) giống nhau, nếu không bạn sẽ thấy lỗi sau: "Stored procedure created in one transaction mode cannot be invoked from another procedure in a different transaction mode."
+> **Lưu ý:** Khi gọi một stored procedure từ một stored procedure khác, các stored procedures phải có chế độ giao dịch (transaction mode) giống nhau, nếu không bạn sẽ thấy lỗi sau: "Stored procedure created in one transaction mode cannot be invoked from another procedure in a different transaction mode."
 
 Để bắt đầu, chúng ta cần tạo một bảng cho các stored procedures trong phần này.
 
@@ -157,7 +157,7 @@ CREATE TABLE procedure_log
 
 ![image.png](/images/3/3-99.png)
 
-**3.4 Nguyên tử (Atomic)**
+### **3.4 Nguyên tử (Atomic)**
 
 Các stored procedures trong Redshift mặc định là nguyên tử, điều này có nghĩa là bạn có quyền kiểm soát giao dịch cho các câu lệnh trong stored procedure. Nếu bạn chọn không bao gồm các lệnh
 
@@ -248,7 +248,7 @@ SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 
 Bạn sẽ thấy rằng lỗi thủ tục pr_divide_by_zero đã được ghi lại trong khối ngoại lệ.
 
-**3.5 Không nguyên tử (Non-atomic)**
+### **3.5 Không nguyên tử (Non-atomic)**
 
 Stored procedures cũng có thể được tạo với tùy chọn `NONATOMIC`, điều này sẽ tự động `COMMIT` sau mỗi câu lệnh. Khi xảy ra ngoại lệ lỗi (ERROR) trong một stored procedure, ngoại lệ không phải lúc nào cũng được đưa ra lại. Thay vào đó, bạn có thể chọn "xử lý" lỗi và tiếp tục các câu lệnh tiếp theo trong stored procedure.
 
@@ -320,7 +320,7 @@ SELECT * FROM procedure_log ORDER BY log_timestamp DESC;
 
 Bạn sẽ thấy rằng lỗi thủ tục pr_divide_by_zero_v2 đã được ghi lại trong khối ngoại lệ giống như trong phiên bản nguyên tử.
 
-**3.6 Materialized Views**
+### **3.6 Materialized Views**
 
 Trong môi trường kho dữ liệu, các ứng dụng thường cần thực hiện các truy vấn phức tạp trên các bảng lớn—ví dụ, các câu lệnh SELECT thực hiện các phép nối nhiều bảng và tổng hợp dữ liệu trên các bảng chứa hàng tỷ hàng. Việc xử lý các truy vấn này có thể tốn kém về mặt tài nguyên hệ thống và thời gian để tính toán kết quả.
 
@@ -415,7 +415,7 @@ limit 1000;
 
 > Viết các truy vấn bổ sung có thể tận dụng chế độ xem được thực thể hóa của bạn nhưng không tham chiếu trực tiếp đến nó. Ví dụ: Tổng giá mở rộng theo khu vực.
 
-**3.7 Tổng hợp**
+### **3.7 Tổng hợp**
 
 Hãy xem liệu Redshift có tự động làm mới materialized view sau khi dữ liệu bảng `lineitem` thay đổi không.
 
@@ -440,7 +440,7 @@ and datepart(year, o_orderdate) = 1998 and datepart(month, o_orderdate) = 8;
 
 Chạy các truy vấn dưới đây trên materialized view và so sánh với giá trị bạn đã ghi lại trước đó. Bạn sẽ thấy giá trị tổng (SUM) đã thay đổi, điều này cho thấy Redshift đã nhận diện các thay đổi đã xảy ra trong bảng cơ sở hoặc các bảng cơ sở, và sau đó áp dụng các thay đổi đó vào materialized view.
 
-**Lưu ý:** Việc làm mới materialized view là bất đồng bộ (asynchronous). Trong bài lab này, hãy dự đoán khoảng 5 phút để dữ liệu được làm mới sau khi bạn gọi stored procedure `lineitem_incremental`.
+> **Lưu ý:** Việc làm mới materialized view là bất đồng bộ (asynchronous). Trong bài lab này, hãy dự đoán khoảng 5 phút để dữ liệu được làm mới sau khi bạn gọi stored procedure `lineitem_incremental`.
 
 ```jsx
 select SUM(TOTAL_QTY) Total_Qty from supplier_shipmode_agg;
@@ -448,7 +448,7 @@ select SUM(TOTAL_QTY) Total_Qty from supplier_shipmode_agg;
 
 ![image.png](/images/3/3-26.png)
 
-**3.8 Hàm người dùng định nghĩa (User Defined Functions)**
+### **3.8 Hàm người dùng định nghĩa (User Defined Functions)**
 
 Redshift hỗ trợ hàm người dùng định nghĩa (UDF) kiểu scalar bằng cách sử dụng câu lệnh SQL SELECT hoặc chương trình Python. Ví dụ dưới đây tạo một hàm Python so sánh hai số và trả về giá trị lớn hơn:
 

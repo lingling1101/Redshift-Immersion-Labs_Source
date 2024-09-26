@@ -6,9 +6,9 @@ chapter : false
 pre : " <b> 8. </b> "
 ---
 
-**8. Clean up resources**
+### **8. Clean up resources**
 
-**8.1 Delete Stacks**
+### **8.1 Delete Stacks**
 
 - Go to CloudFormation
 - Select the 'RedshiftImmersionLab' Stack
@@ -16,7 +16,7 @@ pre : " <b> 8. </b> "
 
 ![image.png](/images/8/8-1.png)
 
-**8.2 Delete Crawlers**
+### **8.2 Delete Crawlers**
  
 - Go to AWS Glue
 - Go to the Crawlers section
@@ -26,7 +26,7 @@ pre : " <b> 8. </b> "
   
 ![image.png](/images/8/8-2.png)
 
-**8.3 Delete Tables**
+### **8.3 Delete Tables**
 
 - Go to AWS Glue
 - Go to the Tables section
@@ -35,7 +35,7 @@ pre : " <b> 8. </b> "
 
 ![image.png](/images/8/8-3.png)
 
-**8.3 Delete S3 buckets**
+### **8.4 Delete S3 buckets**
 
 - Click on the 'tesanalytics-11012003' bucket
 

@@ -5,7 +5,7 @@ weight : 1
 chapter : false
 pre : " <b> 1. </b> "
 ---
-**1. Getting started**
+### **1. Getting started**
 
 Welcome to Redshift Immersion Day!!
 
@@ -23,11 +23,11 @@ Below diagram shows the key features you will be working with and how they are u
 - An Amazon Redshift Provisioned cluster in the same networking environment for use in the data sharing lab.
 - A default role attached to your environments. To learn more about the authorizing Amazon Redshift to access other AWS Services, see the [Creating an IAM role as default for Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/default-iam-role.html).
 
-**1.1 AWS-Sponsored Immersion Day**
+### **1.1 AWS-Sponsored Immersion Day**
 
 If you are conducting these labs as part of an AWS-Sponsored Immersion Day, a lab account has been created with the above resources. For instructions on how to connect to your environment, see [Join Workshop Event](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab0).
 
-**1.2 Self-paced Immersion Day**
+### **1.2 Self-paced Immersion Day**
 
 If you are conducting these labs on your own, use the following CFN template to launch the resources needed in your AWS account.
 
@@ -38,7 +38,7 @@ If you are conducting these labs on your own, use the following CFN template to 
 
 ![image.png](/images/1/1-31.png)
 
-**1.3 Configure client tool - Query editor V2**
+### **1.3 Configure client tool - Query editor V2**
 
 Once you have access to an account with the required resources, let's validate you can connect to your Redshift environments. These labs utilize the Redshift web-based Query Editor v2. Navigate to the [Query editor v2](https://ap-southeast-1.console.aws.amazon.com/sqlworkbench/home?region=ap-southeast-1#/client).
 
@@ -59,7 +59,7 @@ Password: Awsuser123
 ```
 ![image.png](/images/1/1-6.png)
 
-**1.4 Run sample query**
+### **1.4 Run sample query**
 
 Run the following query to list the users within the redshift cluster.
 

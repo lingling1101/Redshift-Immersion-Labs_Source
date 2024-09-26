@@ -6,20 +6,20 @@ chapter = false
 pre = "<b>6. </b>"
 +++
 
-**6. Truy vấn Data Lake - Redshift Spectrum**
+### **6. Truy vấn Data Lake - Redshift Spectrum**
 
 Trong bài thực hành này, chúng tôi sẽ hướng dẫn bạn cách truy vấn dữ liệu trong Amazon S3 Data Lake bằng Amazon Redshift mà không cần tải hoặc di chuyển dữ liệu. Chúng tôi cũng sẽ trình bày cách bạn có thể sử dụng các view để kết hợp dữ liệu trong Redshift Managed storage với dữ liệu trong S3. Bạn có thể truy vấn dữ liệu có cấu trúc và bán cấu trúc từ các tệp trong Amazon S3 mà không cần sao chép hoặc di chuyển dữ liệu vào các bảng của Amazon Redshift. 
 
 ![image.png](/images/6/6-001.png)
 
-**Nội dung**
+### **Nội dung**
 
 - Trước khi bắt đầu
 - Mô tả trường hợp sử dụng
 - Hướng dẫn
 - Trước khi kết thúc
 
-**6.1 Trước khi bắt đầu**
+### **6.1 Trước khi bắt đầu**
 
 Bài thực hành này giả định rằng bạn đã khởi tạo một Redshift Serverless Warehouse. Nếu bạn chưa tạo Redshift Serverless Warehouse, hãy xem phần [Bắt Đầu](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1). Chúng tôi sẽ sử dụng Redshift Query Editor V2 trong bảng điều khiển Redshift cho bài thực hành này.
 
@@ -27,7 +27,7 @@ Vui lòng tìm khu vực của bạn bằng cách làm theo hình ảnh bên dư
 
 > Phòng thí nghiệm này yêu cầu không gian tên Redshift Serverless trong các vùng us-east-1(N. Virginia) hoặc us-west-2(Oregon) hoặc eu-west-1(Ireland) hoặc ap-northeast-1(Tokyo) vì dữ liệu trong s3 nằm ở bốn vùng này.
 
-**6.2 Mô tả trường hợp sử dụng**
+### **6.2 Mô tả trường hợp sử dụng**
 
 **Mục tiêu**: Rút ra những thông tin dữ liệu để thể hiện tác động của trận bão tuyết đến số lượng chuyến xe taxi vào tháng 1 năm 2016.
 
@@ -43,9 +43,9 @@ Vui lòng tìm khu vực của bạn bằng cách làm theo hình ảnh bên dư
 Dưới đây là tổng quan về các bước trong trường hợp sử dụng này liên quan đến bài thực hành.
 ![image.png](/images/6/6-2.png)
 
-**6.3 Hướng dẫn**
+### **6.3 Hướng dẫn**
 
-**1. Tạo và chạy Glue crawler để điền vào Glue data catalog**
+### **1. Tạo và chạy Glue crawler để điền vào Glue data catalog**
 
 Trong phần này của bài thực hành, chúng ta sẽ thực hiện các hoạt động sau:
 - Truy vấn dữ liệu lịch sử lưu trữ trên S3 bằng cách tạo một cơ sở dữ liệu (DB) ngoài cho Redshift Spectrum.
@@ -126,7 +126,7 @@ Trong bài thực hành này, bạn sẽ sử dụng AWS Glue Crawler để tạ
 
 ![image.png](/images/6/6-015.png)
 
-**2. Tạo lược đồ ngoài adb305 trong Redshift và truy vấn từ bảng trong Glue catalog - ny_pub**
+### **2. Tạo lược đồ ngoài adb305 trong Redshift và truy vấn từ bảng trong Glue catalog - ny_pub**
 
 **+** Đi đến **Redshift console**:
 
@@ -164,7 +164,7 @@ ORDER BY 2;
 
 ![image.png](/images/6/6-18.png)
 
-**3. Tạo lược đồ nội bộ workshop_das**
+### **3. Tạo lược đồ nội bộ workshop_das**
 
 Tạo một lược đồ **workshop_das** cho các bảng sẽ được lưu trữ trên **Redshift Managed Storage**.
 
@@ -174,7 +174,7 @@ CREATE SCHEMA workshop_das;
 
 ![image.png](/images/6/6-19.png)
 
-**4. Chạy CTAS để tạo và tải bảng Redshift workshop_das.taxi_201601 bằng cách chọn từ bảng ngoài**
+### **4. Chạy CTAS để tạo và tải bảng Redshift workshop_das.taxi_201601 bằng cách chọn từ bảng ngoài**
 
 Tạo bảng **workshop_das.taxi_201601** để tải dữ liệu cho công ty taxi **green** vào tháng 1 năm 2016
 
@@ -187,7 +187,7 @@ WHERE year = 2016 AND month = 1 AND type = 'green';
 
 ![image.png](/images/6/6-20.png)
 
-**Lưu ý**: Còn về nén/ mã hóa cột thì sao? Hãy nhớ rằng trên một CTAS, Amazon Redshift tự động chỉ định mã hóa nén như sau:
+> **Lưu ý**: Còn về nén/ mã hóa cột thì sao? Hãy nhớ rằng trên một CTAS, Amazon Redshift tự động chỉ định mã hóa nén như sau:
 
 - Các cột được định nghĩa là khóa sắp xếp được chỉ định mã hóa RAW.
 - Các cột được định nghĩa là BOOLEAN, REAL, DOUBLE PRECISION, hoặc GEOMETRY được chỉ định mã hóa RAW.
@@ -212,7 +212,7 @@ WHERE year = 2016 AND month = 1 AND type != 'green');
 
 ![image.png](/images/6/6-22.png)
 
-**5. Xóa các phân vùng 201601 khỏi bảng ngoài**
+### **5. Xóa các phân vùng 201601 khỏi bảng ngoài**
 
 Bây giờ chúng ta đã tải xong dữ liệu của tháng 1 năm 2016, chúng ta có thể xóa các phân vùng khỏi bảng Spectrum để không có sự trùng lặp giữa bảng **Redshift Managed Storage (RMS)** và bảng **Spectrum**.
 
@@ -224,7 +224,7 @@ ALTER TABLE adb305.ny_pub DROP PARTITION(year=2016, month=1, type='yellow');
 
 ![image.png](/images/6/6-23.png)
 
-**6. Tạo view kết hợp public.adb305_view_NY_TaxiRides**
+### **6. Tạo view kết hợp public.adb305_view_NY_TaxiRides**
 
 ```jsx
 CREATE VIEW adb305_view_NYTaxiRides AS

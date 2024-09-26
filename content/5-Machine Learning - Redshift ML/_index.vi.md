@@ -5,11 +5,11 @@ weight : 5
 chapter : false
 pre : " <b> 5. </b> "
 ---
-**5. Học máy - Redshift ML**
+### **5. Học máy - Redshift ML**
 
 Trong bài lab này, bạn sẽ tạo một mô hình sử dụng Redshift ML Auto.
 
-**Nội dung**
+### **Nội dung**
 
 - Trước khi bắt đầu
 - Chuẩn bị dữ liệu
@@ -18,11 +18,11 @@ Trong bài lab này, bạn sẽ tạo một mô hình sử dụng Redshift ML Au
 - Giải thích
 - Trước khi rời khỏi
 
-**5.1 Trước khi bắt đầu**
+### **5.1 Trước khi bắt đầu**
 
 Hướng dẫn này giả định rằng bạn đã khởi chạy một Amazon Redshift Serverless endpoint. Nếu bạn chưa làm như vậy, vui lòng xem phần [**Hướng dẫn bắt đầu**](https://catalog.us-east-1.prod.workshops.aws/workshops/9f29cdba-66c0-445e-8cbb-28a092cb5ba7/en-US/lab1) và làm theo các hướng dẫn tại đó. Chúng tôi sẽ sử dụng [Amazon Redshift QueryEditorV2](https://console.aws.amazon.com/sqlworkbench/home) cho bài lab này.
 
-**5.2 Chuẩn bị dữ liệu**
+### **5.2 Chuẩn bị dữ liệu**
 
 Tập dữ liệu Marketing Ngân hàng chứa các chiến dịch tiếp thị trực tiếp của một tổ chức ngân hàng Bồ Đào Nha. Các chiến dịch tiếp thị dựa trên các cuộc gọi điện thoại. Thường thì cần phải liên hệ nhiều lần với cùng một khách hàng để đánh giá xem sản phẩm (tiền gửi ngân hàng) có được đăng ký ('yes') hay không ('no').
 
@@ -51,7 +51,7 @@ Tập dữ liệu bao gồm các thuộc tính sau. Mục tiêu phân loại là
 - euribor3m
 - nr.employed
 
-**Tài liệu tham khảo:** [Tập dữ liệu marketing ngân hàng](https://archive.ics.uci.edu/ml/datasets/bank+marketing)
+> **Tài liệu tham khảo:** [Tập dữ liệu marketing ngân hàng](https://archive.ics.uci.edu/ml/datasets/bank+marketing)
 
 Thực hiện các lệnh sau để tạo và tải bảng huấn luyện vào Redshift. Lưu ý trường bổ sung `y`, chứa giá trị 'yes' hoặc 'no' chỉ kết quả của việc đăng ký tiền gửi kỳ hạn. Dữ liệu huấn luyện sẽ được tải với dữ liệu lịch sử và được sử dụng để tạo mô hình.
 
@@ -123,7 +123,7 @@ Trước khi bạn tạo một mô hình, bạn cần tạo một bucket S3 đ�
 
 ![image.png](/images/5/5-04.png)
 
-**5.3 Tạo mô hình**
+### **5.3 Tạo mô hình**
 
 Hoàn thành Autopilot được tạo ra với ít đầu vào từ người dùng. Đây sẽ là một bài toán phân loại nhị phân, nhưng Autopilot sẽ chọn thuật toán phù hợp dựa trên dữ liệu và đầu vào.
 
@@ -181,7 +181,7 @@ show model model_bank_marketing;
 
 > Vì quá trình đào tạo mất khoảng 60 phút, bạn có thể chuyển sang phòng thí nghiệm tiếp theo hoặc bài thuyết trình. Vui lòng quay lại sau một giờ và thực hiện các bước còn lại.
 
-**5.4 Kiểm tra độ chính xác và chạy truy vấn suy luận**
+### **5.4 Kiểm tra độ chính xác và chạy truy vấn suy luận**
 
 Hy vọng rằng bạn đã cho mô hình đủ thời gian (~60 phút) để hoàn tất quá trình đào tạo. Chạy cùng một câu lệnh SQL như trên để kiểm tra trạng thái của mô hình. Trạng thái của mô hình nên là 'Ready' để bạn có thể tiếp tục. Chú ý đến điểm số validation- nó sẽ nằm trong khoảng từ 0 đến 1, càng gần 1 thì mô hình càng tốt.
 
@@ -228,7 +228,7 @@ from term_data GROUP BY 1;.
 
 ![image.png](/images/5/5-9.png)
 
-**5.5 Giải thích mô hình**
+### **5.5 Giải thích mô hình**
 
 Bạn có thể xác định các thuộc tính nào đang đóng góp tích cực cho dự đoán và mức độ đóng góp của chúng bằng cách tạo báo cáo giải thích mô hình. Vui lòng chạy lệnh sau để xem giải thích mô hình:
 
